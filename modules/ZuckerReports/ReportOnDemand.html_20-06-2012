@@ -1,0 +1,385 @@
+<!-- BEGIN: main -->
+
+<form name="EditView" method="GET" action="index.php">	
+
+<input type="hidden" name="module" value="ZuckerReports">	
+
+<input type="hidden" name="action" value="ReportOnDemand">	
+
+<input type="hidden" name="run">
+
+<input type="hidden" name="is_scheduler" value="false">
+
+<input type="hidden" name="schedule">
+
+
+
+{REPORT_SELECTION}
+
+
+
+{FORMAT_SELECTION}
+
+
+
+{ATTACH_SELECTION}
+
+
+
+{PARAMETERS}
+
+
+
+{EXEC_BUTTON}
+
+
+
+{SCHEDULE_BUTTON}
+
+
+
+</form>
+	<link rel="stylesheet" href="jquery/themes/base/jquery.ui.all.css">
+	<script src="jquery/jquery-1.7.min.js"></script>
+	<script src="jquery/ui/jquery.ui.core.js"></script>
+	<script src="jquery/ui/jquery.ui.datepicker.js"></script>
+	<link rel="stylesheet" href="jquery/demos.css">
+	
+<script type="text/javascript" src="include/javascript/popup_parent_helper.js"></script>
+
+<script type='text/javascript' language='JavaScript'>
+
+if (document.EditView.parent_module && document.EditView.parent_button) {
+
+	if (document.EditView.parent_module.value == '') {
+
+		document.EditView.parent_button.disabled = true;
+
+	} else {
+
+		document.EditView.parent_button.disabled = false;
+
+	}
+
+}
+
+function moduleChanged(form) {
+
+	form.parent_name.value='';
+
+	form.parent_id.value='';
+
+	if (document.EditView.parent_button) {
+
+		if (form.parent_module.value == '') {
+
+			form.parent_button.disabled = true;
+
+		} else {
+
+			form.parent_button.disabled = false;
+
+		}
+
+	}
+
+}
+
+// Author : Basudeba Rath.
+// Date : 06-Jun-2012.
+
+
+function Selected_field_type(selected_value){
+	
+	    var table = document.getElementById('filter_fields');
+ 
+		var rowCount = table.rows.length;
+		var row = table.insertRow(rowCount);
+
+		if(selected_value == "creditdate"){
+			var cell1 = row.insertCell(0);
+			
+			var element2 = document.createElement("label");
+			element2.innerHTML = "Date From : ";
+			var date_from = document.createElement("input");
+			date_from.type = "text";
+			date_from.id = "date_from";
+			date_from.name = "date_from";
+			
+			var date_to_lbl = document.createElement("label");
+			date_to_lbl.innerHTML = "Date To : ";
+			var date_to = document.createElement("input");
+			date_to.type = "text";
+			date_to.id = "date_to";
+			date_to.name = "date_to";
+			
+			cell1.appendChild(element2);
+			cell1.appendChild(date_from);
+			cell1.appendChild(date_to_lbl);
+			cell1.appendChild(date_to);
+			
+			$( "#date_from" ).datepicker({
+				showOn: "button",
+				buttonImage: "jquery/images/calendar.gif",
+				buttonImageOnly: true
+			});
+			$( "#date_to" ).datepicker({
+				showOn: "button",
+				buttonImage: "jquery/images/calendar.gif",
+				buttonImageOnly: true
+			});
+		
+		}
+		else {
+			
+			var table = document.getElementById('filter_fields');
+            var rowCount = table.rows.length;
+ 
+            for(var i=0; i<rowCount; i++) {
+               
+                    table.deleteRow(i);
+                    rowCount--;
+               	    i--;
+            }
+		}
+
+}
+
+</script>
+
+<!-- END: main -->
+
+<!-- BEGIN: report_selection -->
+
+{REPORT_SELECTION_HEADER}
+
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+
+<tr>		
+
+<td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_TEMPLATE}</slot></td>
+
+<td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='record' onChange="this.form.run.value='false';this.form.submit();">{TEMPLATE_SELECTION}</select></slot></td>
+
+</tr>
+
+</table>
+
+<!-- END: report_selection -->
+
+
+
+<!-- BEGIN: format_selection -->
+
+{FORMAT_SELECTION_HEADER}
+
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+
+<tr>		
+
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_FORMAT}</slot></td>		
+
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='format' onChange="this.form.run.value='false';this.form.submit();">{FORMAT_SELECTION}</select></slot></td>
+
+</tr>
+
+
+
+<!-- BEGIN: wordSAVE -->
+
+<tr>		
+
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_SAVE_PATH}</slot></td>		
+
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="text" name="save_path" value="{SAVE_PATH}" size="50"/></slot></td>
+
+</tr>
+
+<!-- END: wordSAVE -->
+
+<!-- BEGIN: word -->
+
+<tr>		
+
+<td width="100%" colspan="2" valign="top" class="tabDetailViewDF"><slot>{MOD.LBL_LOADER_SETUP}</slot></td>		
+
+</tr>
+
+<!-- END: word -->
+
+
+
+
+
+{FORMAT_PARAMETERS}
+
+
+
+</table>
+
+<!-- END: format_selection -->
+
+
+
+<!-- BEGIN: attach_selection -->
+
+{ATTACH_SELECTION_HEADER}
+
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+
+<tr>
+
+<td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ATTACH_TO}</slot></td>
+
+<td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='parent_module' onChange="javascript:moduleChanged(this.form);">{TYPE_OPTIONS}</select><input name='parent_id' type="hidden" value='{PARENT_ID}'><input name='parent_name' readonly type='text' value="{PARENT_NAME}"><input title="{APP.LBL_CHANGE_BUTTON_TITLE}" type="button" class="button" value="{APP.LBL_CHANGE_BUTTON_LABEL}" name='parent_button' onclick='open_popup(document.EditView.parent_module.value, 600, 400, "", true, false, {encoded_popup_request_data});'/></slot></td>
+
+</tr>
+
+<tr>
+
+<td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ARCHIVE_TO}</slot></td>
+
+<td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='parent_category'>{CAT_OPTIONS}</select></slot></td>
+
+</tr>
+
+<tr>
+
+<td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_SEND_EMAIL}</slot></td>
+
+<td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="text" name="send_email" value="{SEND_EMAIL}" size="50"/> <span class="dateFormat">{MOD.LBL_SEND_EMAIL_HINTS}</span></slot></td>
+
+</tr>
+
+</table>
+
+<!-- END: attach_selection -->
+
+
+
+<!-- BEGIN: attach_selection_hidden -->
+
+<input name='parent_name' type="hidden" value='{PARENT_NAME}'>
+
+<input name='parent_module' type="hidden" value='{PARENT_MODULE}'>
+
+<input name='parent_id' 	type="hidden" value='{PARENT_ID}'>
+
+<!-- END: attach_selection_hidden -->
+
+
+
+
+
+<!-- BEGIN: parameters -->
+
+{PARAMETER_HEADER}
+
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+
+{PARAMETERS}
+
+</table>
+
+<!-- END: parameters -->
+
+<!-- Author : Basudeba Rath, Date : 06-Jun-2012.-->
+
+<!-- BEGIN: execbutton -->
+
+<p/>
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView" id="custom_param">
+	<tr>
+		<th align="left">Filter Options</th>
+	</tr>
+	<tr>
+		<td >Select Field Type : </td>
+		<td>	
+			<select name="field_type" id="field_type" onchange="Selected_field_type(this.value);">
+				<option value="">-none-</option>
+				<option value="casetype"> Case Type</option>
+				<option value="consultant">Consultant</option>
+				<option value="casenumber">Case Number</option>
+				<option value="clientname">Client Name</option>
+				<option value="creditdate">Credit Date</option>
+			</select>
+			
+		</td>
+	</tr>
+	<tr>
+		<td>
+		
+			
+		</td>
+	</tr>
+</table>
+	
+	<table id="filter_fields" width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView" id="custom_param"> </table>
+	
+<table width="100%" cellpadding="0" cellspacing="0" border="0">	<tr>		
+
+<td style="padding-bottom: 2px;">			
+
+<input class="button" onclick="this.form.run.value='true'" type="submit" name="button" value="  {MOD.LBL_ONDEMAND_EXECUTE}  ">		
+
+</td>	
+
+</tr></table>
+
+<!-- END: execbutton -->
+
+
+
+<!-- BEGIN: schedulebutton -->
+
+<p/>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">	<tr>		
+
+<td style="padding-bottom: 2px;">			
+
+<input class="button" onclick="this.form.schedule.value='true'" type="submit" name="button" value="  {MOD.LBL_ADD_SCHEDULER}  ">		
+
+</td>	
+
+</tr></table>
+
+<!-- END: schedulebutton -->
+
+
+
+
+<!-- BEGIN: run -->
+
+<form name="EditView" method="GET" action="{REPORT_URL}" target="_blank">	
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">	<tr>		
+
+<td style="padding-bottom: 2px;">			
+
+<input class="button" type="submit" name="button" value="  {MOD.LBL_ONDEMAND_VIEW}  ">		
+
+</td>	
+
+</tr></table>
+
+</form>
+
+<!-- END: run -->
+
+
+
+<!-- BEGIN: runerror -->
+
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">	
+
+<tr>		
+
+<td valign="top" class="tabDetailViewDF">{REPORT_OUTPUT}</td>			
+
+</tr>
+
+</table>
+
+<!-- END: runerror -->
+

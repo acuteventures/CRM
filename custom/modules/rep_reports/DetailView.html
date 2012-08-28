@@ -1,0 +1,133 @@
+<!--
+/*****************************************************************************
+ * The contents of this file are subject to the RECIPROCAL PUBLIC LICENSE
+ * Version 1.1 ("License"); You may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * http://opensource.org/licenses/rpl.php. Software distributed under the
+ * License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND,
+ * either express or implied.
+ *
+ * You may:
+ * a) Use and distribute this code exactly as you received without payment or
+ *    a royalty or other fee.
+ * b) Create extensions for this code, provided that you make the extensions
+ *    publicly available and document your modifications clearly.
+ * c) Charge for a fee for warranty or support or for accepting liability
+ *    obligations for your customers.
+ *
+ * You may NOT:
+ * a) Charge for the use of the original code or extensions, including in
+ *    electronic distribution models, such as ASP (Application Service
+ *    Provider).
+ * b) Charge for the original source code or your extensions other than a
+ *    nominal fee to cover distribution costs where such distribution
+ *    involves PHYSICAL media.
+ * c) Modify or delete any pre-existing copyright notices, change notices,
+ *    or License text in the Licensed Software
+ * d) Assert any patent claims against the Licensor or Contributors, or
+ *    which would in any way restrict the ability of any third party to use the
+ *    Licensed Software.
+ *
+ * You must:
+ * a) Document any modifications you make to this code including the nature of
+ *    the change, the authors of the change, and the date of the change.
+ * b) Make the source code for any extensions you deploy available via an
+ *    Electronic Distribution Mechanism such as FTP or HTTP download.
+ * c) Notify the licensor of the availability of source code to your extensions
+ *    and include instructions on how to acquire the source code and updates.
+ * d) Grant Licensor a world-wide, non-exclusive, royalty-free license to use,
+ *    reproduce, perform, modify, sublicense, and distribute your extensions.
+ *
+ * The Original Code is: CommuniCore
+ *                       Olavo Farias
+ *                       2006-04-7 olavo.farias@gmail.com
+ *
+ * The Initial Developer of the Original Code is CommuniCore.
+ * Portions created by CommuniCore are Copyright (C) 2005 CommuniCore Ltda
+ * All Rights Reserved.
+ ********************************************************************************/
+
+Author :Basudeba Rath.
+-->
+<!-- BEGIN: main -->
+<script src="custom/modules/rep_reports/FilterReport.js" type="text/javascript"></script>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<form action="index.php" method="post" name="DetailView" id="form">
+			<input type="hidden" name="module" value="rep_reports">
+			<input type="hidden" name="record" value="{ID}">
+			<input type="hidden" name="isDuplicate" value=false>
+			<input type="hidden" name="action">
+			<input type="hidden" name="return_module">
+			<input type="hidden" name="return_action">
+			<input type="hidden" name="return_id" >
+		<tr>
+		<td style="padding-bottom: 2px;">
+		 
+		  <input type="button" onclick="window.open('exportToExcel.php', 'Export', 'width=200,height=100');" value="Export"	title="export">		
+				
+		</td>
+		<td>
+			<select name="field_names" id="field_names" onchange="filtered_by_column();">
+				
+				<option value="filt_by_field">Filter By Fields</option>
+				<option value="credit_date">Case Credit Date</option>
+				<option value="case_type">Case Type</option>
+				<option value="consutant">Consultant</option>
+				<option value="client_name">Client Name</option>
+								
+			</select>
+		</td>
+		<td width="10%"><div id="lbl_client" style="display:none;" >Client Name : </div></td>
+		<td width="10%"><div id="lbl_type" style="display:none;" >Enter Case Type : </div></td>
+		<td width="5%"><div id="txt_data" style="display:none;" ><input type="text" id="field_data"  name="field_data" /></div></td>
+		
+		<td width="10%"> <div id="lbl_fname" style="display:none;" > First Name : </div></td>
+		<td width="10%"><div id="fname" style="display:none;" ><input type="text" id="first_name" name="first_name" /></div></td>
+		<td width="10%"><div id="lbl_lname" style="display:none;" > Last Name : </div></td>
+		<td width="8%"><div id="lname" style="display:none;" > <input type="text" id="last_name" name="last_name" /></div></td>
+		
+		<td  width="8%"><div id="lbl_dt_from"  style="display:none;"> Date From:</div></td>
+		<td  width="8%">
+			<div id="dt_from" style="display:none;">
+			<!--<select name="cs_credit_dt" id="cs_credit_dt" ></select>
+			<select name="month" id="month"></select>-->
+			<input type="text" id="date_from"  name="date_from"  /></div>
+
+		</td>
+		<td><div id="lbl_dt_to"  style="display:none;"> Date To:</div></td>
+		<td><div id="dt_to" style="display:none;"><input type="text" id="date_to" name="date_to"/></div></td>
+		<td><input type="button" id="btn_filter" name="btn_filter" value="Apply Filter"  onclick="filterReport();"/></td>
+		</tr>
+</form>
+		</table>
+	
+<div id="curr_report">
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0"  class="tabDetailView">
+			<tr>
+				<th valign="top"  width="6%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot3'>Case Type</span sugar='slot'></th>
+				 <th valign="top" width="5%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot3b'>Consultant</span sugar='slot'></th>
+				 <th valign="top" width="10%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot4'>Subject</span sugar='slot'></th>
+				 <th valign="top" width="10%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot4b'>Clients Name</span sugar='slot'></th>
+				 
+				 {USERS_TOP}
+			 <th valign="top" width="10%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot5'>Credit Allocation Notes</span sugar='slot'></th>
+				 <th valign="top" width="10%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot5b'>Credit Date</span sugar='slot'></th>
+			</tr>
+
+	{ROWS}
+
+
+<!--<tr>
+	<td id="filt_report">
+		
+		
+	</td>	
+</tr>-->
+	
+</table>
+</div>
+
+<div id="filt_report">
+</div>
+
+<!-- END: main -->

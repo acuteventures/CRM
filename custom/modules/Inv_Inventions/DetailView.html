@@ -1,0 +1,211 @@
+<!-- BEGIN: main -->
+<!--Rajesh G - 07/08/2012 File Uploader -->
+<script src="MultipleFileUpload/fileuploader.js" type="text/javascript"></script>
+
+<link href="MultipleFileUpload/fileuploader.css" rel="stylesheet" type="text/css" />	
+<style>    	
+    /*body {font-size:13px; font-family:arial, sans-serif; width:700px;}*/
+</style>
+<script type="text/javascript">
+    
+    
+    function createUploader(){
+        //alert("File Uploader");
+        
+        var cltId = document.getElementById("client_id").value;
+        var inventionId = document.getElementById("inv_id").value;
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('file-uploader'),
+            action: 'MultipleFileUpload/File_Upload.php',
+            debug: true,
+            allowedExtensions :['doc', 'docx', 'gif', 'jpg', 'jpeg', 'mpg', 'mpeg', 'mp3', 'odt', 'odp', 'ods', 'pdf', 'ppt', 'pptx', 'tif', 'tiff', 'txt', 'xls', 'xlsx', 'wav', 'avi', 'rtf', 'wps', 'png;*', 'stl', 'sldasm', 'sldprt', 'max', 'step', 'dwg', 'sat', 'eps', 'ai', 'zip', 'rar'],
+            sizeLimit: 1024 * 1024 * 10,
+            params : {
+                invId : inventionId,
+                clientId : cltId
+            }
+            //file size in bytes
+        });           
+    }
+    // in your app create uploader as soon as the DOM is ready
+    // don't wait for the window to load  
+    window.onload = createUploader;     
+</script>
+<script type="text/javascript"  >
+    function confirmDelete(dataCell,fileNameWtPath)
+    {
+        if(!confirm("Are you sure you want to delete '"+dataCell.getAttribute("name")+"'?"))
+            return;
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+            xmlhttp = new window.XMLHttpRequest();
+        else
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                if(xmlhttp.responseText == "deleted")
+                    {
+                        var rowIdx = dataCell.getAttribute("id");
+                        var row = document.getElementById("row"+rowIdx);
+                        row.parentNode.removeChild(row);
+                    }
+            }
+        }
+            xmlhttp.open("GET","DeleteFile.php?file="+fileNameWtPath,true);
+        xmlhttp.send();    
+    }
+</script>
+
+<form action="index.php" method="post" name="DetailView" id="form" >
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+
+	<input type="hidden" value="EditView" name="action">
+	<input type="hidden" value="Inv_Inventions" name="module">
+	<input type="hidden" value="{ID}" name="record">
+	<input type="hidden" name="return_action">
+	<input type="hidden" name="return_module">
+	<input type="hidden" name="return_id">
+	<input type="hidden" name="module_tab">
+	<input type="hidden" value="false" name="isDuplicate">
+	<input type="hidden" value="1" name="offset"> 
+    <tr>
+    	<td nowrap style="padding-bottom: 2px;">
+				<!--<input type="submit" value="Edit" id="edit_button" name="Edit" onClick="this.form.return_module.value='Inventions'; this.form.return_action.value='DetailView'; this.form.return_id.value='{ID}'; this.form.action.value='EditView';" class="button primary" accesskey="E" title="Edit [Alt+E]">--> <input title="{APP.LBL_EDIT_BUTTON_TITLE}" 
+		        accessKey="{APP.LBL_EDIT_BUTTON_KEY}" 
+		        class="button" 
+		        onclick="this.form.return_module.value='Inv_Inventions'; this.form.return_action.value='DetailView'; this.form.return_id.value='{ID}'; this.form.action.value='EditView';" 
+		        type="submit" 
+		        name="Edit" 
+		        value="{APP.LBL_EDIT_BUTTON_LABEL}  "> 
+
+
+<input title="{APP.LBL_DUPLICATE_BUTTON_TITLE}" accessKey="{APP.LBL_DUPLICATE_BUTTON_KEY}" class="button" onclick="this.form.return_module.value='Inv_Inventions'; this.form.return_action.value='index'; this.form.isDuplicate.value=true; this.form.action.value='EditView'" type="submit" name="Duplicate" value=" {APP.LBL_DUPLICATE_BUTTON_LABEL} ">
+<input title="{APP.LBL_DELETE_BUTTON_TITLE}" accessKey="{APP.LBL_DELETE_BUTTON_KEY}" class="button" onclick="this.form.return_module.value='Inv_Inventions'; this.form.return_action.value='ListView'; this.form.action.value='Delete'; return confirm('{APP.NTC_DELETE_CONFIRMATION}')" type="submit" name="Delete" value=" {APP.LBL_DELETE_BUTTON_LABEL} ">
+		</td>
+	</tr>
+
+</table>
+</form>	
+<script type="javascript" src="include/javascript/checkbox.js"></script>
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="detail view">
+<tr>
+   <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_NAME}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{INVENTION_NAME}</span sugar='slot'></td>
+	
+	<td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_CLIENT_NAME}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{CLIENT_LINK}</span sugar='slot'></td>
+</tr>
+<tr>
+    <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_INVENTION_ID}:</span sugar='slot'></td>
+    <td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{INVENTION_ID}</span sugar='slot'></td>
+
+    <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_TOTAL_PATENT_ASSIGNED}</span sugar='slot'></td>
+    <td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{TOTAL_PATENT_ASSIGNED}</span sugar='slot'></td>
+</tr>
+<tr>
+	<td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot14'>{APP.LBL_DATE_MODIFIED}</span sugar='slot'></td>
+	<td width="37.5%" class="tabDetailViewDF"><span sugar='slot14b'>{DATE_MODIFIED} {APP.LBL_BY} {MODIFIED_BY}&nbsp;</span sugar='slot'></td>
+	
+	<td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot16'>{APP.LBL_DATE_ENTERED}</span sugar='slot'></td>
+	<td width="37.5%" class="tabDetailViewDF"><span sugar='slot16b'>{DATE_ENTERED} {APP.LBL_BY} {CREATED_BY}&nbsp;</span sugar='slot'></td>
+</tr>
+
+</table>
+<h4>{MOD.LBL_INVENTOR_INFORMATION}</h4>
+
+{LINEITEMS_ROWS}
+
+
+<h4>{MOD.LBL_ASSIGNMENT_INFORMATION}</h4>
+
+{ASSIGNMENT_ITEM_ROWS}
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="detail view">
+<!--<tr>
+   <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ASSIGNEE_NAME}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ASSIGNEE_NAME}</span sugar='slot'></td>
+	
+	<td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ASSIGNEE_ADDRESS1}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ASSIGNEE_ADDRESS1}</span sugar='slot'></td>
+</tr>	
+
+<tr>
+   <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ASSIGNEE_ADDRESS2}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ASSIGNEE_ADDRESS2}</span sugar='slot'></td>
+	
+	<td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ASSIGNEE_CITY}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ASSIGNEE_CITY}</span sugar='slot'></td>
+</tr>	
+
+<tr>
+   <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ASSIGNEE_STATE}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ASSIGNEE_STATE}</span sugar='slot'></td>
+	
+	<td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ASSIGNEE_ZIPCODE}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ASSIGNEE_ZIPCODE}</span sugar='slot'></td>
+</tr>
+
+<tr>
+   <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ASSIGNEE_COUNTRY}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ASSIGNEE_COUNTRY}</span sugar='slot'></td>
+	
+	<td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ENTITY_TYPE}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ENTITY_TYPE}</span sugar='slot'></td>
+</tr>-->
+
+</table>
+
+<h4>{MOD.LBL_ENTITY_TYPE}</h4>
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="detail view">
+
+<tr>
+   
+    <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ENTITY_TYPE}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ENTITY_TYPE}</span sugar='slot'></td>
+	
+    <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_ASSIGNMENT}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{ASSIGNMENT}</span sugar='slot'></td>
+	
+</tr>
+<tr>
+   
+    <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_NON_PROFIT_ENTITY}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{NON_PROFIT_ENTITY}</span sugar='slot'></td>
+	
+    <td width="12.5%" valign="top" scope="row" class="tabDetailViewDL"><span sugar='slot3'>{MOD.LBL_GOVT_INVENTIONS}:</span sugar='slot'></td>
+	<td width="37.5%" valign="top" class="tabDetailViewDF"><span sugar='slot3b'>{GOVT_INVENTIONS}</span sugar='slot'></td>
+	
+</tr>
+
+
+</table>
+<div>
+<h4>{MOD.LBL_ASSOCIATED_CASES}</h4>
+{CASE_DATA}
+</div>
+
+<!--<h4>{MOD.LBL_UPLOAD_FILES_HEADER}</h4>-->
+<div>
+<input type="hidden" id="client_id" value="{CLIENT_ID}" />
+<input type="hidden" id="inv_id" value="{INVENTION_ID}" />
+<p>To upload a file, click on the button below. Drag-and-drop is supported in FF, Chrome.</p>
+<p>Progress-bar is supported in FF3.6+, Chrome6+, Safari4+</p>
+
+<div id="file-uploader">		
+    <noscript>			
+        <p>Please enable JavaScript to use file uploader.</p>
+    </noscript>         
+</div>
+
+</div>
+<div>
+    <h4>{MOD.LBL_UPLOAD_FILES_HEADER}</h4>
+<table>
+        {FILE_LIST}
+</table>
+</div>
+
+<!-- END: main -->
+ 

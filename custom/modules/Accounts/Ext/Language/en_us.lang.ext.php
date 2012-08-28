@@ -1,0 +1,12 @@
+<?php 
+ //WARNING: The contents of this file are auto-generated
+
+
+//THIS FILE IS AUTO GENERATED, DO NOT MODIFY
+$mod_strings['LBL_INV_INVENTIONS_ACCOUNTS_FROM_INV_INVENTIONS_TITLE'] = 'Inventions';
+
+
+//THIS FILE IS AUTO GENERATED, DO NOT MODIFY
+$mod_strings['LBL_TRADE_TRADEMARK_ACCOUNTS_FROM_TRADE_TRADEMARK_TITLE'] = 'Trademark';
+
+?>

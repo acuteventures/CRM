@@ -1,0 +1,137 @@
+<!--
+/*****************************************************************************
+ * The contents of this file are subject to the RECIPROCAL PUBLIC LICENSE
+ * Version 1.1 ("License"); You may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * http://opensource.org/licenses/rpl.php. Software distributed under the
+ * License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND,
+ * either express or implied.
+ *
+ * You may:
+ * a) Use and distribute this code exactly as you received without payment or
+ *    a royalty or other fee.
+ * b) Create extensions for this code, provided that you make the extensions
+ *    publicly available and document your modifications clearly.
+ * c) Charge for a fee for warranty or support or for accepting liability
+ *    obligations for your customers.
+ *
+ * You may NOT:
+ * a) Charge for the use of the original code or extensions, including in
+ *    electronic distribution models, such as ASP (Application Service
+ *    Provider).
+ * b) Charge for the original source code or your extensions other than a
+ *    nominal fee to cover distribution costs where such distribution
+ *    involves PHYSICAL media.
+ * c) Modify or delete any pre-existing copyright notices, change notices,
+ *    or License text in the Licensed Software
+ * d) Assert any patent claims against the Licensor or Contributors, or
+ *    which would in any way restrict the ability of any third party to use the
+ *    Licensed Software.
+ *
+ * You must:
+ * a) Document any modifications you make to this code including the nature of
+ *    the change, the authors of the change, and the date of the change.
+ * b) Make the source code for any extensions you deploy available via an
+ *    Electronic Distribution Mechanism such as FTP or HTTP download.
+ * c) Notify the licensor of the availability of source code to your extensions
+ *    and include instructions on how to acquire the source code and updates.
+ * d) Grant Licensor a world-wide, non-exclusive, royalty-free license to use,
+ *    reproduce, perform, modify, sublicense, and distribute your extensions.
+ *
+ * The Original Code is: CommuniCore
+ *                       Olavo Farias
+ *                       2006-04-7 olavo.farias@gmail.com
+ *
+ * The Initial Developer of the Original Code is CommuniCore.
+ * Portions created by CommuniCore are Copyright (C) 2005 CommuniCore Ltda
+ * All Rights Reserved.
+ ********************************************************************************/
+
+-->
+<!--
+ * Name : Preethi
+ * date: 26-06-2012
+ -->
+<!-- BEGIN: main -->
+<script src="displayReportAjax.js"></script>
+<script type="text/javascript" language="javascript">
+function openWindow()
+{
+	// Validation to check atleast one check box
+	var len=document.DetailView.case_id;
+		var checked = 0;
+		for(i=0;i<document.DetailView.elements.length;i++)
+		{
+			if(document.DetailView.elements[i].name.indexOf("case_id")>-1)
+			{
+				if(document.DetailView.elements[i].checked == true)
+				{
+					var checked = 1;
+				}
+			}
+		}
+		var cs_id= new Array();
+		if(checked == 0)
+		{
+			alert("Select atleast one case");
+			return false;
+		}else{
+			for (var i=0; i<document.DetailView.case_id.length; i++) 
+				{
+					if (document.DetailView.case_id[i].checked) 
+					{
+						cs_id[i] = document.DetailView.case_id[i].value;
+						
+					}
+				}
+				window.open('sendEmail_inv_report.php?id='+cs_id+'&type='+1,'name','height=375px,width=625px');
+		}
+}
+</script>
+<form action="index.php" method="post" name="DetailView" id="form">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <input type="hidden" name="module" value="Inv_Report">
+    <input type="hidden" name="record" value="{ID}">
+    <input type="hidden" name="isDuplicate" value=false>
+    <input type="hidden" name="action">
+    <input type="hidden" name="return_module">
+    <input type="hidden" name="return_action">
+    <input type="hidden" name="return_id" >
+  <tr>
+    <td style="padding-bottom: 2px;">
+	  <table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0"  class="tabDetailView">
+        <tr>
+          <!--<td width="3%" class="tabDetailViewDL"> Consultant First Name: </td>
+          <td width="3%" style="text-align:left" class="tabDetailViewDL"><input type="text" maxlength="10" size="20" tabindex="105" title="" value="" id="consultant_name" name="consultant_name" >          </td>-->
+		  <td width="3%" class="tabDetailViewDL">Consultant : </td>
+		  <td width="3%" class="tabDetailViewDL" style="text-align:left"><select name="consultant_name" id="consultant_name">{USERS_OPTIONS}</select></td>
+		  <td width="1%" style="text-align:left" class="tabDetailViewDL" ><input type="button" name="submit" id="submit" value="Search" onclick="filter_1st_option('3');"/>          </td>
+            <td width="1%" style="text-align:left" class="tabDetailViewDL" ><input type="button" value="Reset" id="search_form_clear" name="clear" class="button" onclick="window.location.reload()"></td>
+			<td width="3%" class="tabDetailViewDL">&nbsp;</td>
+			<td width="3%" class="tabDetailViewDL">&nbsp;</td>
+			<td width="3%" class="tabDetailViewDL">&nbsp;</td>
+			<td width="3%" class="tabDetailViewDL"><input type="button" name="email" id="email" value="Email" onclick="return openWindow();"/></td>
+        </tr>
+      </table>
+	</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabDetailView" style='table-layout:fixed'>
+  <tr>
+    <td><table border="0" cellspacing="{GRIDLINE}" cellpadding="0" width="100%">
+        <tr>
+          <th valign="top"  width="12%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot3'>Case Name</span sugar='slot'></th>
+		  <th valign="top"  width="12%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot3'>Client</span sugar='slot'></th>
+		  <th valign="top"  width="12%" class="tabDetailViewDL" style="text-align:left;"><span sugar='slot3'>Parent Consultant</span sugar='slot'></th>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td id="current_reports"> {ROWS} </td>
+  </tr>
+  <tr>
+    <td id="ExpiringProvisionalswithNoFullPatentinProgress_Div"></td>
+  </tr>
+</table>
+ </form>
+<!-- END: main -->

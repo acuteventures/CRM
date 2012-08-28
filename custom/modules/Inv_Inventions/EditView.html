@@ -1,0 +1,481 @@
+<!-- BEGIN: main -->
+
+<form id="EditView" name="EditView" method="POST" action="index.php" onsubmit="return check_validate();">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td class="buttons"><input type="hidden" value="Inv_Inventions" name="module">
+                <input type="hidden" value="{ID}" name="record">
+                <input type="hidden" value="false" name="isDuplicate">
+                <input type="hidden" name="action">
+                <input type="hidden"  name="return_module" value="{RETURN_MODULE}">
+                <input type="hidden" value="{RETURN_ACTION}" name="return_action">
+                <input type="hidden"  name="return_id" value="{RETURN_ID}">
+                <input type="hidden" name="module_tab">
+                <input type="hidden" name="contact_role">
+                <input type="hidden" value="Inv_Inventions" name="relate_to">
+                <input type="hidden" value="1" name="offset">
+                <input type="submit" value="Save" name="button" onclick="this.form.action.value='Save'; return check_form('EditView');" class="button" accesskey="S" title="Save [Alt+S]">
+                <input type="submit" value="Cancel" name="button" onclick="this.form.action.value='index'; this.form.module.value='Inv_Inventions'; this.form.record.value='';" class="button" accesskey="X" title="Cancel [Alt+X]">
+            </td>
+            <td align="right"></td>
+        </tr>
+    </table>
+    <script type="text/javascript" src="jquery/jquery-1.7.min.js" ></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () { 
+		
+            var edit_total_count = document.getElementById('edit_total_count').value;
+            var rowNumber = edit_total_count;
+            $('#add_inventor').live("click",function(){
+                //alert('hii');
+                var htmlblock = $('div#inventor_info').html();
+                //alert(htmlblock);
+						
+                $('div#holder').show();
+                var r  = htmlblock.replace(new RegExp('zx','g') , rowNumber);
+                //alert(r);
+                //Append the new row to the body of the #myTable table
+                $('#holder').append(r);
+                //Iterate row number
+                rowNumber++;
+
+            });
+		
+            var assign_edit_total_count = document.getElementById('assign_edit_total_count').value;
+            var assign_rowNumber = assign_edit_total_count;
+            $('#add_assignee').live("click",function(){
+                var assign_edit_total_count = document.getElementById('assign_edit_total_count').value;
+                var assign_rowNumber = assign_edit_total_count;
+
+                var htmlblock1 = $('div#assignee_info').html();
+                //alert(htmlblock1);
+                $('div#assignment_holder').show();
+                var r  = htmlblock1.replace(new RegExp('ax','g') , assign_rowNumber);
+                //alert(r);
+                //Append the new row to the body of the #myTable table
+                $('#assignment_holder').append(r);
+
+                //Iterate row number
+                document.getElementById('count').value = assign_rowNumber;
+                assign_rowNumber++;
+                document.getElementById('assign_edit_total_count').value  = assign_rowNumber;
+			
+
+            });
+            /*$("table.delete_table .delete_row").live("click",function(event){
+                            //alert(event.target.id);
+                            //alert($(this).attr('id'));
+                            //tb_id.remove();
+                            //$(this).parents().find(".delete_row").remove();
+                            alert($(this).parents().find(".delete_table").attr('id'));
+
+                    });*/
+
+		
+        });
+        function deleteTable(del_id){
+            //alert(del_id);
+            $('#'+del_id).remove();
+        }
+
+        function assignment_del(del_id){
+            //alert(del_id);
+            $('#'+del_id).remove();
+            var count = document.getElementById("count").value;
+            document.getElementById("count").value = count - 1;
+
+            var idxCount = 	document.getElementById('assign_edit_total_count').value;
+            document.getElementById('assign_edit_total_count').value = idxCount -1;
+
+            changeIdsRemove(del_id);
+        }
+
+        function check_validate(){
+	
+            count = document.getElementById('count').value;
+            var total = 0;
+            for(var i=0;i<=count;i++){
+                p_value = parseInt(document.getElementById('percent_patent_assigned_'+i).value);
+                if(isNaN(p_value)){
+                    //alert('Please Enter Number for Percent Patent Assigned!');
+                    //return false;
+                }
+                else{
+                    total += p_value;
+                }
+            }
+            if(total>100){
+                alert('Total patent assigned must not be greater than 100%');
+                return false;
+            }
+            else {
+                document.getElementById('total_patent_assigned').value = total;
+                return true;
+            }
+        }
+        
+        function changeIdsRemove(Idx)
+        {
+            var rowIdx = Idx.replace("AssignmentTable_","");
+            var count = 	document.getElementById('assign_edit_total_count').value;
+            var idx = 0;
+            for(var i=0;i<=count;i++)
+            {
+                if(i!=rowIdx)
+                {
+                    var pc = document.getElementById("percent_patent_assigned_"+i)
+                    pc.id    = "percent_patent_assigned_"+idx;
+                    pc.name = "percent_patent_assigned_"+idx;
+			
+                    var pc = document.getElementById("assignee_name_"+i)
+                    pc.id    = "assignee_name_"+idx;
+                    pc.name = "assignee_name_"+idx;
+			
+                    var pc = document.getElementById("assignee_address1_"+i)
+                    pc.id    = "assignee_address1_"+idx;
+                    pc.name = "assignee_address1_"+idx;
+			
+                    var pc = document.getElementById("assignee_address2_"+i)
+                    pc.id    = "assignee_address2_"+idx;
+                    pc.name = "assignee_address2_"+idx;
+			
+                    var pc = document.getElementById("assignee_city_"+i)
+                    pc.id    = "assignee_city_"+idx;
+                    pc.name = "assignee_city_"+idx;
+			
+                    var pc = document.getElementById("assignee_state_"+i)
+                    pc.id    = "assignee_state_"+idx;
+                    pc.name = "assignee_state_"+idx;
+			
+                    var pc = document.getElementById("assignee_zipcode_"+i)
+                    pc.id    = "assignee_zipcode_"+idx;
+                    pc.name = "assignee_zipcode_"+idx;
+			
+                    var pc = document.getElementById("assignee_country_"+i)
+                    pc.id    = "assignee_country_"+idx;
+                    pc.name = "assignee_country_"+idx;
+			
+                    var tbl = document.getElementById("AssignmentTable_"+i)
+                    tbl.id    = "AssignmentTable_"+idx;
+                    
+                    idx++;
+                }
+            }
+        }
+    </script>
+    <table cellspacing="0" cellpadding="0" width="100%" id="tabFormPagination" class="detail view">
+    </table>
+
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tr>
+            <th align="left" > <h4>{MOD.LBL_NEW_FORM_TITLE}</h4></th>
+        </tr>
+        <tr>
+            <td width="12.5%">{MOD.LBL_NAME}:<span class="required">*</span></td>
+            <td width="37.5%"><input type='text' name='invention_name' id='invention_name' value='{INVENTION_NAME}' class="ac_input"></td>
+
+
+            <td width="12.5%" valign="top" scope="col" id="">{MOD.LBL_CLIENT_NAME}</td>
+
+            <td width="37.5%" valign="top">
+                <!--<input type="text" autocomplete="off" title="" value="{CLIENT_NAME}" size="" id="client_name" tabindex="0" class="sqsEnabled yui-ac-input" name="client_name">-->
+                <input type="text" autocomplete="off" title="" value="{CLIENT_NAME}" size="" id="inv_inventions_accounts_name" tabindex="103" class="sqsEnabled yui-ac-input" name="inv_inventions_accounts_name">
+                <!--<input type="text" autocomplete="off" title="" value="{CLIENT_NAME}" size="" id="accounts_inventions" tabindex="0" class="sqsEnabled" name="accounts_inventions">-->
+                <!--<input type="hidden" value="{CLIENT_ID}" id="client_id" name="client_id">-->
+                <!--<input type="hidden" id="account_id" name="account_id">-->
+                <input type="hidden" value="{CLIENT_ID}" id="inv_inventd1acccounts_ida" name="inv_inventd1acccounts_ida">
+
+                <button onclick='open_popup("Accounts", 600, 400, "",	true, false, {"call_back_function":"set_return","form_name":"EditView","field_to_name_array":{"id":"inv_inventd1acccounts_ida","name":"inv_inventions_accounts_name"}},	"single", true);' class="button firstChild" accesskey="U" title="Select Client [Alt+U]" tabindex="0" id="btn_inv_inventions_accounts_name" name="btn_inv_inventions_accounts_name"  type="button"><img alt="" src="themes/default/images/id-ff-select.png?v=OIXX-lwlUV73favZcB3MQg"></button>
+
+                <button value="Clear" onclick="document.forms['EditView'].client_name.value = ''; document.forms['EditView'].client_id.value = '';" class="button lastChild" accesskey="C" title="Clear [Alt+C]" tabindex="0" id="btn_clr_inv_inventions_accounts_name" name="btn_clr_inv_inventions_accounts_name" type="button"><img src="themes/default/images/id-ff-clear.png?v=OIXX-lwlUV73favZcB3MQg"></button>
+
+            </td>
+
+        </tr>
+    </table>
+
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tr>
+            <th align="left" > <h4>{MOD.LBL_INVENTOR_INFORMATION}</h4></th>
+        </tr>
+        <tr>	  	
+            <td ><input type="button" id="add_inventor" value="Add Inventor"></td>
+        </tr>
+    </table>
+
+    <div id="inventor_info" style="display:none;">
+
+        <table cellspacing="2" cellpadding="0" border="0" width="100%" class="edit view delete_table"  id="myTable_zx">
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_FIRST_NAME}:</td>
+                <td width="37.5%"><input type='text' name='first_name_zx' id='first_name_zx' class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_MIDDLE_NAME}:</td>
+                <td width="37.5%"><input type='text' name='middle_name_zx' id='middle_name_zx'  class="ac_input" /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_LAST_NAME}:</td>
+                <td width="37.5%"><input type='text' name='last_name_zx' id='last_name_zx' class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_MAILING_ADDRESS1}:</td>
+                <td width="37.5%"><textarea name='mailing_address1_zx' id='mailing_address1_zx' class="ac_input" ></textarea></td>		
+            </tr>
+
+            <tr> 
+
+                <td width="12.5%">{MOD.LBL_MAILING_ADDRESS2}:</td>
+                <td width="37.5%"><textarea name='mailing_address2_zx' id='mailing_address2_zx' class="ac_input" ></textarea></td>		
+
+                <td width="12.5%">{MOD.LBL_MAILING_CITY}:</td>
+                <td width="37.5%"><input type='text' name='mailing_city_zx' id='mailing_city_zx' class="ac_input" /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_MAILING_STATE}:</td>
+                <td width="37.5%"><input type='text' name='mailing_state_zx' id='mailing_state_zx' class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_MAILING_ZIPCODE}:</td>
+                <td width="37.5%"><input type='text' name='mailing_zipcode_zx' id='mailing_zipcode_zx' class="ac_input" />
+                </td>
+
+            </tr>
+            <tr>
+                <td width="12.5%">{MOD.LBL_MAILING_COUNTRY}:</td>
+                <td width="37.5%"><input type='text' name='mailing_country_zx' id='mailing_city_zx' class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_RESIDENCE_CITY}:</td>
+                <td width="37.5%"><input type='text' name='residence_city_zx' id='residence_city_zx' class="ac_input" /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_RESIDENCE_STATE}:</td>
+                <td width="37.5%"><input type='text' name='residence_state_zx' id='residence_state_zx' class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_RESIDENCE_COUNTRY}:</td>
+                <td width="37.5%"><input type='text' name='residence_country_zx' id='residence_country_zx' class="ac_input" /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_EMAIL_ADDRESS}:</td>
+                <td width="37.5%"><input type='text' name='email_address_zx' id='email_address_zx' class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_PHONE_NUMBER}:</td>
+                <td width="37.5%"><input type='text' name='phone_number_zx' id='phone_number_zx' class="ac_input" />
+                    &nbsp;&nbsp; <input type="button" value="-" name="delbutton_zx" id="delbutton_zx" class="0" onclick="deleteTable('myTable_zx');">&nbsp;&nbsp;
+                    &nbsp;&nbsp;<input type="radio" name="primary_type" value="zx" />&nbsp;&nbsp; Primary
+                    <input type="hidden" name="table_count" value="zx" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+
+    <div id="holder" >
+        <table cellspacing="3" cellpadding="0" border="0" width="100%" class="edit view delete_table"  id="myTable_0" >
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_FIRST_NAME}:</td>
+                <td width="37.5%"><input type='text' name='first_name_0' id='first_name_0' value="{FIRST_NAME}"  class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_MIDDLE_NAME}:</td>
+                <td width="37.5%"><input type='text' name='middle_name_0' id='middle_name_0' value="{MIDDLE_NAME}" class="ac_input" /></td>
+
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_LAST_NAME}:</td>
+                <td width="37.5%"><input type='text' name='last_name_0' id='last_name_0' value="{LAST_NAME}" class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_MAILING_ADDRESS1}:</td>
+                <td width="37.5%"><textarea name='mailing_address1_0' id='mailing_address1_0' class="ac_input" >{MAILING_ADDRESS1}</textarea></td>		
+            </tr>
+
+            <tr> 
+
+                <td width="12.5%">{MOD.LBL_MAILING_ADDRESS2}:</td>
+                <td width="37.5%"><textarea name='mailing_address2_0' id='mailing_address2_0' class="ac_input" >{MAILING_ADDRESS2}</textarea></td>		
+
+                <td width="12.5%">{MOD.LBL_MAILING_CITY}:</td>
+                <td width="37.5%"><input type='text' name='mailing_city_0' id='mailing_city_0' value="{MAILING_CITY}" class="ac_input" /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_MAILING_STATE}:</td>
+                <td width="37.5%"><input type='text' name='mailing_state_0' id='mailing_state_0' value="{MAILING_STATE}" class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_MAILING_ZIPCODE}:</td>
+                <td width="37.5%"><input type='text' name='mailing_zipcode_0' id='mailing_zipcode_0' value="{MAILING_ZIPCODE}" class="ac_input" />
+                </td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_MAILING_COUNTRY}:</td>
+                <td width="37.5%"><input type='text' name='mailing_country_0' id='mailing_country_0' value="{MAILING_COUNTRY}" class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_RESIDENCE_CITY}:</td>
+                <td width="37.5%"><input type='text' name='residence_city_0' id='residence_city_0' value="{RESIDENCE_CITY}"  class="ac_input" /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_RESIDENCE_STATE}:</td>
+                <td width="37.5%"><input type='text' name='residence_state_0' id='residence_state_0' value="{RESIDENCE_STATE}" class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_RESIDENCE_COUNTRY}:</td>
+                <td width="37.5%"><input type='text' name='residence_country_0' id='residence_country_0' value="{RESIDENCE_COUNTRY}" class="ac_input" /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_EMAIL_ADDRESS}:</td>
+                <td width="37.5%"><input type='text' name='email_address_0' id='email_address_0' value="{EMAIL_ADDRESS}" class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_PHONE_NUMBER}:</td>
+                <td width="37.5%"><input type='text' name='phone_number_0' id='phone_number_0' value="{PHONE_NUMBER}" class="ac_input" />
+
+                    &nbsp;&nbsp; <input type="button" value="-" name="delbutton_0" id="delbutton_0" class="delete_row" onclick="deleteTable('myTable_0');">&nbsp;&nbsp;
+                    &nbsp;&nbsp;<input type="radio" name="primary_type" {PRIMARY_CHECKED} value="0" />&nbsp;&nbsp; Primary
+                                       <input type="hidden" name="table_count" value="0" />
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    {LINEITEMS_ROWS}
+
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tr>
+            <th align="left" > <h4>{MOD.LBL_ASSIGNMENT_INFORMATION}</h4></th>
+        </tr>
+        <tr>	  	
+            <td ><input type="button" id="add_assignee" value="Add Assignees"></td>
+        </tr>
+    </table>
+
+    <div id="assignee_info" style="display:none;">			
+
+        <table cellspacing="2" cellpadding="0" border="0" width="100%" class="edit view delete_table"  id="AssignmentTable_ax">
+            <tr>
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_NAME}:</td>
+                <td width="37.5%"><input type='text' name='assignee_name_ax' id='assignee_name_ax' class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_PERCENT_PATENT_ASSIGNED}:</td>
+                <td width="37.5%"><input type='text' name='percent_patent_assigned_ax' id='percent_patent_assigned_ax' class="ac_input" /></td>
+            </tr>
+            <tr>
+
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_ADDRESS1}:</td>
+                <td width="37.5%"><textarea name='assignee_address1_as' id='assignee_address1_ax'  class="ac_input" ></textarea></td>
+
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_ADDRESS2}:</td>
+                <td width="37.5%"><textarea name='assignee_address2_ax' id='assignee_address2_ax' class="ac_input" ></textarea></td>
+
+            </tr>
+            <tr> 
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_CITY}:</td>
+                <td width="37.5%"><input type="text" name='assignee_city_ax' id='assignee_city_ax' class="ac_input" /></td>		
+
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_STATE}:</td>
+                <td width="37.5%"><input type='text' name='assignee_state_ax' id='assignee_state_ax' class="ac_input" /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_ZIPCODE}:</td>
+                <td width="37.5%"><input type='text' name='assignee_zipcode_ax' id='assignee_zipcode_ax' class="ac_input" /></td>
+
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_COUNTRY}:</td>
+                <td width="37.5%"><input type='text' name='assignee_country_ax' id='assignee_country_ax' class="ac_input" />
+
+                    <input type="hidden" name="assign_table_count" value="ax" />
+
+                    &nbsp;&nbsp; <input type="button" value="-" name="assi_del_ax" id="assi_del_ax" class="delete_row" onclick="assignment_del(this.parentNode.parentNode.parentNode.parentNode.id);">
+
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+    <div id="assignment_holder">
+
+        <input type="hidden" id="count" name="count" value="{COUNT_VALUE}" />
+        <input type="hidden" id="total_patent_assigned" name="total_patent_assigned" value="{TOTAL_PATENT_ASSIGNED}" />
+
+        <table cellspacing="3" cellpadding="0" border="0" width="100%" class="edit view delete_table" id="AssignmentTable_0">
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_NAME}:</td>
+                <td width="37.5%"><input type='text' name='assignee_name_0' id='assignee_name_0' value='{ASSIGNEE_NAME}' class="ac_input"/></td>
+                <td width="12.5%">{MOD.LBL_PERCENT_PATENT_ASSIGNED}:</td>
+                <td width="37.5%"><input type='text' name='percent_patent_assigned_0' id='percent_patent_assigned_0' class="ac_input" value = '{PERCENT_PATENT_ASSIGNED}' /></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_ADDRESS1}:</td>
+                <td width="37.5%"><textarea name='assignee_address1_0' id="assignee_address1_0" rows="5" cols="30">{ASSIGNEE_ADDRESS1}</textarea></td>
+
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_ADDRESS2}:</td>
+                <td width="37.5%"><textarea name='assignee_address2_0' id="assignee_address2_0" rows="5" cols="30">{ASSIGNEE_ADDRESS2}</textarea></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_CITY}:</td>
+                <td width="37.5%"><input type='text' name='assignee_city_0' id='assignee_city_0' value='{ASSIGNEE_CITY}' class="ac_input"/></td>
+
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_STATE}:</td>
+                <td width="37.5%"><input type='text' name='assignee_state_0' id='assignee_state_0' value='{ASSIGNEE_STATE}' class="ac_input"/></td>
+            </tr>
+
+            <tr>
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_ZIPCODE}:</td>
+                <td width="37.5%"><input type='text' name='assignee_zipcode_0' id='assignee_zipcode_0' value='{ASSIGNEE_ZIPCODE}' class="ac_input"/></td>
+
+                <td width="12.5%">{MOD.LBL_ASSIGNEE_COUNTRY}:</td>
+                <td width="37.5%"><input type='text' name='assignee_country_0' id='assignee_country_0' value='{ASSIGNEE_COUNTRY}' class="ac_input"/>
+                    &nbsp;&nbsp; <input type="button" value="-" name="assi_del_0" id="assi_del_0" class="delete_row" onclick="assignment_del(this.parentNode.parentNode.parentNode.parentNode.id);">
+
+                    <input type="hidden" name="assign_table_count" value="0" />
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+
+    {ASSIGNMENT_LINEITEMS_ROWS}
+
+
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tr>
+            <th > <h4>{MOD.LBL_ENTITY_TYPE}</h4></th>
+        </tr>
+
+        <tr>
+            <td width="12.5%">{MOD.LBL_ENTITY_TYPE}:</td>
+            <td width="37.5%"><input type='radio' name='invention_entity_type' id='invention_entity_type1' value='{SMALL_ENTITY_TYPE}' {SMALL_ENTITY_CHECK} class="ac_input" />&nbsp;&nbsp;Small Entity
+                                     &nbsp;&nbsp;<input type='radio' name='invention_entity_type' id='invention_entity_type2' value='{LARGE_ENTITY_TYPE}' {LARGE_ENTITY_CHECK} class="ac_input" />&nbsp;&nbsp;Large Entity</td>
+        </tr>
+
+    </table>
+
+
+
+    <div class="buttons">
+        <input type="submit" value="Save" name="button" onclick="this.form.action.value='Save'; return check_form('EditView');" class="button" accesskey="S" title="Save [Alt+S]">
+        <input type="submit" value="Cancel" name="button" onclick="this.form.action.value='index'; this.form.module.value='Inv_Inventions'; this.form.record.value='';" class="button" accesskey="X" title="Cancel [Alt+X]">
+    </div>
+</form>
+<script type="text/javascript">
+    addToValidate('EditView', 'invention_name', 'varchar', true,'{MOD.LBL_NAME}');
+	
+</script>
+<script type="text/javascript">
+    {JAVASCRIPT}
+    {SYNC_FIELDS_JS}
+</script>
+<!-- END: main -->
+<!-- END: main -->
