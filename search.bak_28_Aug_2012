@@ -157,20 +157,7 @@ static  $sum_CRProint=0;
         	  $case_id=$row_sub_client_name['case_id'][$ik];
 	?>
         <tr>
-          <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="left"><a href="index.php?module=Cases&return_module=c1_Credit_Report&action=DetailView&record=<?php echo $case_id;?>"><?php echo $row_sub_client_name['casename'][$ik] ;?></a>
-		  <span style="font:Arial, Helvetica, sans-serif; color:#FF37FF;">
-		  <?php 
-		  	$sub_caes=$ObjCase->get_cases_subcaes($case_id,$case_status_comp,$case_status_ab,$From_date,$To_date);
-			$count_subcases=count($sub_caes['subcase_name']);
-		  	for($zz=0;$zz<$count_subcases;$zz++)	
-			{
-			echo  $sub_caes['subcase_name'][$zz];
-			echo "<br>";
-			}
-			?>
-		  </span>
-		  
-		  </td>
+          <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="left"><a href="index.php?module=Cases&return_module=c1_Credit_Report&action=DetailView&record=<?php echo $case_id;?>"><?php echo $row_sub_client_name['casename'][$ik] ;?></a></td>
         </tr>
 
         <?php 

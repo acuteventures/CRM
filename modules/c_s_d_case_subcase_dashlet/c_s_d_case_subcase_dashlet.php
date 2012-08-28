@@ -167,6 +167,32 @@ class c_s_d_case_subcase_dashlet extends c_s_d_case_subcase_dashlet_sugar {
                 $ret_array['where'] .= ' AND ( c_s_d_case_subcase_dashlet.client_consultant_id ="' . $_REQUEST['viewasfilter_basic'][0] . '" OR c_contribute.login_id = "' . $_REQUEST['viewasfilter_basic'][0] . '") ';
             }
         }
+		// * preethi on 28-08-2012, Des : queries for 2 newly added options
+		else if($_REQUEST['casesfilter_basic'][0] == 'open_utility_cases'){
+		
+			$ret_array['select'] = " SELECT distinct c_s_d_case_subcase_dashlet.id , c_s_d_case_subcase_dashlet.parent_case_id, jt0.name parent_case_name , c_s_d_case_subcase_dashlet.parent_subcase_id, jt1.name parent_subcase_name , c_s_d_case_subcase_dashlet.account_id, jt2.name account_name , c_s_d_case_subcase_dashlet.client_consultant_id, LTRIM(RTRIM(CONCAT(IFNULL(jt3.first_name,''),' ',IFNULL(jt3.last_name,'')))) client_consultant_name , c_s_d_case_subcase_dashlet.case_type_id, jt4.name case_type_name , c_s_d_case_subcase_dashlet.sub_case_type_id, jt5.name subcase_name , c_s_d_case_subcase_dashlet.status, jt6.name status_name , c_s_d_case_subcase_dashlet.case_subcase_status_age , c_s_d_case_subcase_dashlet.due_date , c_s_d_case_subcase_dashlet.prioritydate, c_s_d_case_subcase_dashlet.assigned_user_id ";
+		
+			$ret_array['from'].=" LEFT JOIN c_contribute ON c_contribute.case_id = c_s_d_case_subcase_dashlet.case_subcase_id";
+			
+            $ret_array['where'] = ' WHERE jt6.order_no >= 20 AND jt6.order_no != 100 AND c_s_d_case_subcase_dashlet.deleted = "0" AND (jt4.name = "Utility Patent")  AND c_contribute.deleted=0 ';
+			
+            if($_REQUEST['viewasfilter_basic'][0] != "all"){
+                $ret_array['where'] .= ' AND ( c_s_d_case_subcase_dashlet.client_consultant_id ="' . $_REQUEST['viewasfilter_basic'][0] . '" OR c_contribute.login_id = "' . $_REQUEST['viewasfilter_basic'][0] . '") ';
+            }
+		
+		}else if($_REQUEST['casesfilter_basic'][0] == 'open_design_cases'){
+		
+			$ret_array['select'] = " SELECT distinct c_s_d_case_subcase_dashlet.id , c_s_d_case_subcase_dashlet.parent_case_id, jt0.name parent_case_name , c_s_d_case_subcase_dashlet.parent_subcase_id, jt1.name parent_subcase_name , c_s_d_case_subcase_dashlet.account_id, jt2.name account_name , c_s_d_case_subcase_dashlet.client_consultant_id, LTRIM(RTRIM(CONCAT(IFNULL(jt3.first_name,''),' ',IFNULL(jt3.last_name,'')))) client_consultant_name , c_s_d_case_subcase_dashlet.case_type_id, jt4.name case_type_name , c_s_d_case_subcase_dashlet.sub_case_type_id, jt5.name subcase_name , c_s_d_case_subcase_dashlet.status, jt6.name status_name , c_s_d_case_subcase_dashlet.case_subcase_status_age , c_s_d_case_subcase_dashlet.due_date , c_s_d_case_subcase_dashlet.prioritydate, c_s_d_case_subcase_dashlet.assigned_user_id ";
+		
+			$ret_array['from'].=" LEFT JOIN c_contribute ON c_contribute.case_id = c_s_d_case_subcase_dashlet.case_subcase_id";
+			
+            $ret_array['where'] = ' WHERE jt6.order_no >= 20 AND jt6.order_no != 100 AND c_s_d_case_subcase_dashlet.deleted = "0" AND (jt4.name = "Design Patent")  AND c_contribute.deleted=0 ';
+			
+            if($_REQUEST['viewasfilter_basic'][0] != "all"){
+                $ret_array['where'] .= ' AND ( c_s_d_case_subcase_dashlet.client_consultant_id ="' . $_REQUEST['viewasfilter_basic'][0] . '" OR c_contribute.login_id = "' . $_REQUEST['viewasfilter_basic'][0] . '") ';
+            }
+		}
+		// * End
 		else if($_REQUEST['casesfilter_basic'][0] == 'search_prov_cases_incomplete')
 		{
             //by anuradha 11/8/2012

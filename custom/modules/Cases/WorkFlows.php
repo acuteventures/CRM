@@ -448,7 +448,7 @@
 		echo "<pre>";
 		//print_r($bean);
 		exit;*/
-		if($bean->fetched_row['relatedtoparent'] == 'Trademark'){
+		if($bean->fetched_row['relatedtoparent'] == 'Trademark' && $bean->rel_fields_before_value['trade_trademark_casestrade_trademark_ida'] != $bean->trade_trademark_casestrade_trademark_ida){
 			$delete_sql = "DELETE FROM `trade_trademark_cases_c` WHERE trade_trademark_casestrade_trademark_ida='".$bean->rel_fields_before_value['trade_trademark_casestrade_trademark_ida']."' AND trade_trademark_casescases_idb = '".$bean->id."'";
 			$res_delete_sql = $db->query($delete_sql);
 		}

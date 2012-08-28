@@ -65,6 +65,7 @@ $GLOBALS['app_list_strings']['client_filter_dom']=array (
 //Modified - 26/07/2012
 //Case filter dom
 //modified by anuradha on 7/8/2012
+// * preethi on 28-08-2012, Des: added 2 new options i.e Open Utility Cases and Open Design Cases
 $GLOBALS['app_list_strings']['cases_filter_dom']=array (
     'all_cases' =>'Cases',
     'cases_opportunities' => 'Case Opportunities',
@@ -76,6 +77,8 @@ $GLOBALS['app_list_strings']['cases_filter_dom']=array (
     'cases_to_file' => 'Cases to File',
     'cases_to_start' => 'Cases To Start',
     'open_utility_design_cases' => 'Open Utility & Design Cases',
+	'open_utility_cases' => 'Open Utility Cases',
+	'open_design_cases' => 'Open Design Cases',
     'search_prov_cases_incomplete' => 'Open Search & Provisional Cases',
     'cases_flagged' => 'Flagged Cases',
 	'open_cases' => 'Open Cases',	

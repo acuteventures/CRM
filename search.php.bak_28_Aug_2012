@@ -95,47 +95,20 @@ static  $sum_CRProint=0;
     <td  valign="top" align="center" style="border-bottom:#4E8CCF solid 1px; border-right:#4E8CCF solid 1px;"><?php echo $case_type;?></td>
     <td   valign="top" align="center" style="border-bottom:#4E8CCF solid 1px; border-right:#4E8CCF solid 1px;"><table width="100%">
         <?php 
-		
 			$row_credits=$ObjCase->get_cases_consultant_Credits($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date );
 			$count_array=count($row_credits['client_consultant_id']);
-			
-			for ($ij=0; $ij<$count_array ;$ij++ ){
-			
+			for ($ij=0; $ij<=$count_array ;$ij++ ){
         	$case_id=$row_credits['case_id'][$ij];
-			$consultant_id=$row_credits['consultant_id'][$ij];
 	        $client_consultant_id = $row_credits['client_consultant_id'][$ij];
 	        ?>
         <tr>
-          <td valign="top" style="border-top:#FF0000 2px solid;" height="40" align="left"><?php echo $row_credits['consultant'][$ij] ;?></td>
+          <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="left"><?php echo $row_credits['consultant'][$ij] ;?></td>
         </tr>
-		<tr>
-          <td valign="top"  height="40" align="left">&nbsp;</td>
-        </tr>
-		
-		<?php
-		
-			// For Subject Value
-			$row_sub_client_name=$ObjCase->getCaseSubjectAnsClientNameCredits_mine($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id);
-			$count_array_casename=count($row_sub_client_name['casename']);
-			for ($ik=0; $ik<$count_array_casename-1;$ik++ ){
-        	  $case_id=$row_sub_client_name['case_id'][$ik];
-		?>
-		<tr>
-          <td valign="top"  height="40" align="left">&nbsp;</td>
-        </tr>
-		
-		
         <?php
   }
   
-  
-
-		
-	
-  
-  }
    ?>
-      </table>
+      </table></td>
     <td valign="top" align="center" style="border-bottom:#4E8CCF solid 1px; border-right:#4E8CCF solid 1px;"><table width="100%">
         <?php 
 			$row_credits_Subject=$ObjCase->get_cases_consultant_Credits($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date );
@@ -143,104 +116,43 @@ static  $sum_CRProint=0;
 			
 			for ($ij_Subject=0; $ij_Subject<$count_array_Subject ;$ij_Subject++ ){
         	$case_id_Subject=$row_credits_Subject['case_id'][$ij_Subject];
-			
-			$consultant_id_Subject=$row_credits_Subject['consultant_id'][$ij_Subject];
 	        $client_consultant_id_Subject = $row_credits_Subject['client_consultant_id'][$ij_Subject];
 			
 			// For Subject Value
-			$row_sub_client_name=$ObjCase->getCaseSubjectAnsClientNameCredits_mine($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id_Subject);
-			$count_array_casename=count($row_sub_client_name['casename']);
-			
-			
+			$row_sub_client_name=$ObjCase->getCaseSubjectAnsClientNameCredits($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date);
+			$count_array_client_name=count($row_sub_client_name['case_id']);
 	?>
-        <?php for ($ik=0; $ik<$count_array_casename;$ik++ ){
+        <?php for ($ik=0; $ik<=$count_array_client_name;$ik++ ){
         	  $case_id=$row_sub_client_name['case_id'][$ik];
 	?>
         <tr>
-          <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="left"><a href="index.php?module=Cases&return_module=c1_Credit_Report&action=DetailView&record=<?php echo $case_id;?>"><?php echo $row_sub_client_name['casename'][$ik] ;?></a>
-		  <span style="font:Arial, Helvetica, sans-serif; color:#FF37FF;">
-		  <?php 
-		  	$sub_caes=$ObjCase->get_cases_subcaes($case_id,$case_status_comp,$case_status_ab,$From_date,$To_date);
-			$count_subcases=count($sub_caes['subcase_name']);
-		  	for($zz=0;$zz<$count_subcases;$zz++)	
-			{
-			echo  $sub_caes['subcase_name'][$zz];
-			echo "<br>";
-			}
-			?>
-		  </span>
-		  
-		  </td>
+          <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="left"><a href="index.php?module=Cases&return_module=c1_Credit_Report&action=DetailView&record=<?php echo $case_id;?>"><?php echo $row_sub_client_name['casename'][$ik] ;?></a></td>
         </tr>
-
-        <?php 
-		if($ik==$count_array_casename-1){
-		
-		?>
-		<tr>
-          <td valign="top"  height="40" align="left">&nbsp;</td>
-        </tr>
-		<?php }
-		
-		
-		}
-		if($count_array_casename==0){
-		?>
-		 <tr>
-          <td valign="top"  height="40" align="left">&nbsp;</td>
-        </tr>
-		 <tr>
-          <td valign="top"  height="40"  align="left">&nbsp;</td>
-        </tr>
-		<?php
-		}
-		
-	?>
-
-	<tr> <td valign="top" align="center" style="border-top:#FF0000 solid 2px;"></td></tr>
-	
         <?php }
-		
-		
-		?>
-
-		
-      </table></td></td>
+	?>
+        <?php }?>
+      </table></td>
     <td valign="top" align="center" style="border-bottom:#4E8CCF solid 1px; border-right:#4E8CCF solid 1px;"><table width="100%">
         <?php 
 			$row_credits_client_name=$ObjCase->get_cases_consultant_Credits($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date );
 			$count_array_client_name=count($row_credits_client_name['client_consultant_id']);
 			for ($ij_client_name=0; $ij_client_name<$count_array_client_name;$ij_client_name++ ){
         	$case_id_client_name=$row_credits_client_name['case_id'][$ij_client_name];
-			$consultant_id_client_name=$row_credits_client_name['consultant_id'][$ij_client_name];
 	        $client_consultant_id_client_name = $row_credits_client_name['client_consultant_id'][$ij_client_name];
 			
 			// For Subject Value
-			$row_sub_client_name_client_name=$ObjCase->getCaseSubjectAnsClientNameCredits_mine($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id_client_name);
+			$row_sub_client_name_client_name=$ObjCase->getCaseSubjectAnsClientNameCredits($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date);
 			$count_array_client_name_client_name=count($row_sub_client_name_client_name['case_id']);
 	?>
-        <?php for ($ik_client_name=0; $ik_client_name<$count_array_client_name_client_name ;$ik_client_name++ ){
+        <?php for ($ik_client_name=0; $ik_client_name<=$count_array_client_name_client_name ;$ik_client_name++ ){
         
 	?>
         <tr>
           <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="left"><a href="index.php?module=Accounts&return_module=c1_Credit_Report&action=DetailView&record=<?php echo $row_sub_client_name_client_name['clientid'][$ik_client_name] ;?>"><?php echo $row_sub_client_name_client_name['clientname'][$ik_client_name] ;?></a></td>
         </tr>
-        <?php }?>
-		<tr>
-          <td valign="top" height="40" align="left">&nbsp;</td>
-        </tr>
-		<?php 
-		if($count_array_client_name_client_name==0){
-		?>
-		<tr>
-          <td valign="top" height="40" align="left">&nbsp;</td>
-        </tr>
-		
-		<?php }
+        <?php }
 	?>
-	<tr> <td valign="top" align="center" style="border-top:#FF0000   solid 2px;"></td></tr>
         <?php }?>
-		
       </table></td>
     <?php
 	$grand_total=0;
@@ -255,12 +167,11 @@ static  $sum_CRProint=0;
 			$count_array_CP=count($row_credits_CP['client_consultant_id']);
 			for ($ij_CP=0; $ij_CP<$count_array_CP ;$ij_CP++ ){
 			$sum_CRProint=0;
-			$sum_CRProint1=0;
-          	$consultant_id_CP=$row_credits_CP['consultant_id'][$ij_CP];
+        //	$case_id_CP=$row_credits_CP['client_consultant_id'][$ij_CP];
 	        $client_consultant_id_CP = $row_credits_CP['client_consultant_id'][$ij_CP];
 			
 			// For Subject Value
-			$row_sub_client_name_CP=$ObjCase->getCaseSubjectAnsClientNameCredits_mine($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id_CP);
+			$row_sub_client_name_CP=$ObjCase->getCaseSubjectAnsClientNameCredits($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date);
 		//	print_r($row_sub_client_name_CP);
 			$count_array_client_name_CP=count($row_sub_client_name_CP['case_id']);
 			//echo $count_array_client_name_CP;
@@ -276,32 +187,14 @@ static  $sum_CRProint=0;
 		 
 		 ?></td>
         </tr>
-        <?php $sum_CRProint=$roooo+$sum_CRProint;
-		 $sum_CRProint1=$roooo+$sum_CRProint1;
-		}
-		
-		if($count_array_client_name_CP==0){
-		?>
-		 <tr>
-          <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="center"><?php 	 echo "0";	 
-		 
-		 ?></td>
-        </tr>
-		<?php }
+        <?php $sum_CRProint=$roooo+$sum_CRProint;}
 		 
 	?>
-	
-	<tr >
-    <td valign="top" height="40" bgcolor="#E7F3FE" align="center"><strong><?php  echo $sum_CRProint1 ;?></strong></td>
-    </tr>
-	
-	<tr> <td valign="top" align="center" style="border-top:#FF0000  solid 2px;"></td></tr>
-	
         <?php }
 		
 		?>
 		<tr >
-          <td valign="top" height="40" bgcolor="#E7F3FE" align="center"><strong><?php  echo $sum_CRProint;?></strong></td>
+          <td valign="top" height="40" bgcolor="#E7F3FE"><strong><?php  echo $sum_CRProint;?></strong></td>
         </tr>
       </table></td>
     <?php
@@ -314,35 +207,23 @@ static  $sum_CRProint=0;
 			$count_array_notes=count($row_credits_notes['client_consultant_id']);
 			for ($ij_notes=0; $ij_notes<$count_array_notes;$ij_notes++ ){
         	$case_id_notes=$row_credits_notes['case_id'][$ij_notes];
-			
-			$consultant_id_notes=$row_credits_notes['consultant_id'][$ij_notes];
 	        $client_consultant_id_notes = $row_credits_notes['client_consultant_id'][$ij_notes];
 		
 			
 			// For Subject Value
-			$row_sub_notes=$ObjCase->getCaseSubjectAnsClientNameCredits_mine($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id_notes);
+			$row_sub_notes=$ObjCase->getCaseSubjectAnsClientNameCredits($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date);
 			//print_r($row_sub_notes['credit_alloc_notes']);
 			$count_array_client_name_notes=count($row_sub_notes['case_id']);
 	?>
-        <?php for ($ik_notes=0; $ik_notes<$count_array_client_name_notes ;$ik_notes++ ){
+        <?php for ($ik_notes=0; $ik_notes<=$count_array_client_name_notes ;$ik_notes++ ){
         
 	?>
         <tr>
           <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="center"><?php echo $row_sub_notes['credit_alloc_notes'][$ik_notes] ;?></td>
         </tr>
         <?php }
-		
-		if($count_array_client_name_notes==0){
-		?>
-		<tr>
-          <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="center"><?php echo $row_sub_notes['credit_alloc_notes'][$ik_notes] ;?></td>
-        </tr>
-		<?php }
 	?>
-       		<tr>
-          <td valign="top"  height="40" align="left">&nbsp;</td>
-        </tr><tr> <td valign="top" align="center" style="border-top:#FF0000  solid 2px;"></td></tr>
-	    <?php }?>
+        <?php }?>
       </table></td>
     <td valign="top"align="center" style="border-bottom:#4E8CCF solid 1px; border-right:#4E8CCF solid 1px;"><table width="100%">
         <?php 
@@ -351,62 +232,27 @@ static  $sum_CRProint=0;
 			for ($ij_date=0; $ij_date<$count_array_date;$ij_date++ ){
         	$case_id_date=$row_credits_date['case_id'][$ij_date];
 	        $client_consultant_id_date = $row_credits_date['client_consultant_id'][$ij_date];
-		$consultant_id_date=$row_credits_date['consultant_id'][$ij_date];
+		
 			
 			// For Subject Value
-			$row_sub_date=$ObjCase->getCaseSubjectAnsClientNameCredits_mine($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id_date);
+			$row_sub_date=$ObjCase->getCaseSubjectAnsClientNameCredits($e,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date);
 			//print_r($row_sub_date['credit_date']);
 			$count_array_client_name_date=count($row_sub_date['case_id']);
 	?>
-        <?php for ($ik_date=0; $ik_date<$count_array_client_name_date ;$ik_date++ ){
+        <?php for ($ik_date=0; $ik_date<=$count_array_client_name_date ;$ik_date++ ){
         
 	?>
         <tr>
           <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="center"><?php echo $row_sub_date['credit_date'][$ik_date] ;?></td>
         </tr>
         <?php }
-		
-		if($count_array_client_name_date ==0){
-		?>
-		 <tr>
-          <td valign="top" style="border-bottom:#660066  1px solid;" height="40" align="center"><?php echo $row_sub_date['credit_date'][$ik_date] ;?></td>
-        </tr>
-		
-	
-        <?php 
-		}//if
-		
-		?>
-				<tr>
-          <td valign="top"  height="40" align="left">&nbsp;</td>
-        </tr>
-		<tr> <td valign="top" align="center" style="border-top:#FF0000  solid 2px;"></td></tr>
-		
-		<?php
-		}?>
+	?>
+        <?php }?>
       </table></td>
   </tr>
 
-  <tr style="background-color:#FF8080;">
-    <td width="8%" height="4"></td>
-    <td width="10%" height="4"></td>
-    <td width="16%" height="4"></td>
-    <td width="23%" height="4"></td>
-    <?php
- foreach ($email as $k1 => $v1) {
- echo "<td height='4'></td>";
-}
-   ?>
-    <td width="17%" height="4"></td>
-    <td width="14%" height="4"></td>
-    <td height="4"></td>
-  </tr>
-
-
-
   <?php
        }
-	   
 	   }else{
 	   
 	   echo "<div align='center'><strong>No Records Found :(</strong></div>";
@@ -414,21 +260,18 @@ static  $sum_CRProint=0;
    ?>
   </tr>
 
-
- <tr>
-    <td width="8%" height="50"></td>
-    <td width="10%" height="50"></td>
-    <td width="16%" height="50"></td>
-    <td width="23%" height="50"></td>
-    <?php
- foreach ($email as $k11 => $v11) {
- 
- ?>
-<td height='50' style="background-color:#FFFFFF;" align="center"><strong><?php echo $GrandCredit=$ObjCase->getGrandTotal($case_status_comp,$case_status_ab,$k11,$From_date,$To_date);?></strong></td>
-<?php }?>
-    <td width="17%" height="50"></td>
-    <td width="14%" height="50"></td>
-    <td height="50"></td>
+   <tr>
+    <td height="40" align="center" valign="top">&nbsp;</td>
+    <td  valign="top" align="center" >&nbsp;</td>
+    <td   valign="top" align="center">&nbsp;</td>
+    <td  valign="top" align="center">&nbsp;</td>
+	<?php
+ 	foreach ($email as $p => $q) {
+	?>
+    <td valign="top" align="left" ><!--<strong>Grand Total of Credit Points:- </strong><?php //echo $grand_total;?>--></td>
+	 <?php }?>
+    <td valign="top" align="center">&nbsp;</td>
+    <td valign="top" align="center" >&nbsp;</td>
   </tr>
  
 </table>

@@ -535,9 +535,7 @@ if(!empty($id)){
 	}
 	
 	
-/*	28-Aug-2012
-
-function getCaseSubjectAnsClientNameCredits_mine($case_type,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id_Subject)
+	function getCaseSubjectAnsClientNameCredits_mine($case_type,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id_Subject)
 	{
 	    global  $db,$current_user; 
 		$consultant = array();
@@ -584,84 +582,6 @@ function getCaseSubjectAnsClientNameCredits_mine($case_type,$case_status_comp,$c
    // return $result;
 	
 	}
-	
-	*/
-
-
-function getCaseSubjectAnsClientNameCredits_mine($case_type,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date,$consultant_id_Subject)
-	{
-	    global  $db,$current_user; 
-		$consultant = array();
-	    $casename = array();
-		$credit_alloc_notes = array();
-	    $credit_date = array();
-	    $clientname = array();
-		$clientid = array();
-	    $case_id = array();
-		$client_consultant_id = array();
-	    $ret_array = array();
-		
-if($user_id != 'all'){
-
-
-/*$query = "SELECT   cases.client_consultant_id AS client_consultant_id, cases.id AS case_id,CONCAT(users.first_name,users.last_name) AS consultant,cases.name AS 'case_Name',cases.credit_alloc_notes AS 'credit_allocation_notes',cases.credit_date AS credit_date,accounts.name AS'client_name' , accounts.id AS accounts_id  FROM cases,users,accounts , c_contribute WHERE  cases.client_consultant_id=users.id AND cases.deleted=0 AND users.deleted=0 AND c_contribute.deleted=0 AND accounts.deleted=0 AND 
-cases.account_id=accounts.id 
-AND ( cases.status = '".$case_status_comp."' OR  cases.status = '".$case_status_ab."')  AND cases.type='".$case_type."' AND (cases.client_consultant_id='".$user_id."' OR c_contribute.login_id = '".$user_id."') AND c_contribute.case_id=cases.id 
-AND cases.credit_date BETWEEN '".$From_date."' AND '".$To_date."'  GROUP BY cases.name ORDER BY cases.credit_date DESC";
-}
-else
-{
-$query = "SELECT   cases.client_consultant_id AS client_consultant_id, cases.id AS case_id,CONCAT(users.first_name,users.last_name) AS consultant,cases.name AS 'case_Name',cases.credit_alloc_notes AS 'credit_allocation_notes',cases.credit_date AS credit_date,accounts.name AS 'client_name' , accounts.id AS accounts_id  FROM cases,users,accounts , c_contribute WHERE  cases.client_consultant_id=users.id AND cases.deleted=0 AND users.deleted=0 AND c_contribute.deleted=0 AND accounts.deleted=0 AND 
-cases.account_id=accounts.id 
-AND ( cases.status = '".$case_status_comp."' OR  cases.status = '".$case_status_ab."')  AND cases.type='".$case_type."' AND c_contribute.case_id=cases.id  AND cases.credit_date BETWEEN '".$From_date."' AND '".$To_date."' AND (cases.client_consultant_id='".$consultant_id_Subject."'  OR c_contribute.login_id='".$consultant_id_Subject."') GROUP BY cases.name ORDER BY cases.credit_date DESC";
-
-}*/
-
-
-/*$query = "SELECT   cases.client_consultant_id AS client_consultant_id, cases.id AS case_id,CONCAT(users.first_name,users.last_name) AS consultant,cases.name AS 'case_Name',cases.credit_alloc_notes AS 'credit_allocation_notes',cases.credit_date AS credit_date,accounts.name AS'client_name' , accounts.id AS accounts_id  FROM cases,users,accounts , c_contribute WHERE  cases.client_consultant_id=users.id AND cases.deleted=0 AND users.deleted=0 AND c_contribute.deleted=0 AND accounts.deleted=0 AND 
-cases.account_id=accounts.id 
-AND ( cases.status = '".$case_status_comp."' OR  cases.status = '".$case_status_ab."')  AND cases.type='".$case_type."' AND (cases.client_consultant_id='".$user_id."' OR c_contribute.login_id = '".$user_id."') AND c_contribute.case_id=cases.id 
-AND cases.credit_date BETWEEN '".$From_date."' AND '".$To_date."'  GROUP BY cases.name ORDER BY cases.credit_date DESC";*/
-
-
-
-$query = "SELECT   cases.client_consultant_id AS client_consultant_id, cases.id AS case_id,CONCAT(users.first_name,users.last_name) AS consultant,cases.name AS 'case_Name',cases.credit_alloc_notes AS 'credit_allocation_notes',cases.credit_date AS credit_date,accounts.name AS'client_name' , accounts.id AS accounts_id  FROM cases,users,accounts , c_contribute WHERE  cases.client_consultant_id=users.id AND cases.deleted=0 AND users.deleted=0 AND c_contribute.deleted=0 AND accounts.deleted=0 AND 
-			cases.account_id=accounts.id 
-			AND ( cases.status = '".$case_status_comp."' OR  cases.status = '".$case_status_ab."')  AND cases.type='".$case_type."' AND (cases.client_consultant_id='".$user_id."' OR c_contribute.login_id = '".$user_id."') AND c_contribute.case_id=cases.id AND users.id='".$consultant_id_Subject."'  
-			AND cases.credit_date BETWEEN '".$From_date."' AND '".$To_date."'  GROUP BY cases.name ORDER BY cases.credit_date DESC";
-}
-else
-{
-$query = "SELECT   cases.client_consultant_id AS client_consultant_id, cases.id AS case_id,CONCAT(users.first_name,users.last_name) AS consultant,cases.name AS 'case_Name',cases.credit_alloc_notes AS 'credit_allocation_notes',cases.credit_date AS credit_date,accounts.name AS 'client_name' , accounts.id AS accounts_id  FROM cases,users,accounts , c_contribute WHERE  cases.client_consultant_id=users.id AND cases.deleted=0 AND users.deleted=0 AND c_contribute.deleted=0 AND accounts.deleted=0 AND 
-cases.account_id=accounts.id 
-AND ( cases.status = '".$case_status_comp."' OR  cases.status = '".$case_status_ab."')  AND cases.type='".$case_type."' AND c_contribute.case_id=cases.id  AND cases.credit_date BETWEEN '".$From_date."' AND '".$To_date."' AND cases.client_consultant_id='".$consultant_id_Subject."'  GROUP BY cases.name ORDER BY cases.credit_date DESC LIMIT 0,10";
-
-}
-        $result = $this->db->query($query, true, " Error filling in additional detail fields: ");
- 
-        while ($row = $db->fetchByAssoc($result)) {
-				array_push($client_consultant_id, $row['client_consultant_id']);
-				array_push($case_id, $row['case_id']);
-				array_push($consultant, $row['consultant']);
-				array_push($casename, $row['case_Name']);
-				array_push($credit_alloc_notes, $row['credit_allocation_notes']);
-				array_push($credit_date, $row['credit_date']);
-				array_push($clientname, $row['client_name']);
-				array_push($clientid, $row['accounts_id']);
-				//array_push($casename, $row['case Name']);
-    }
-        // Get the id and the name.
-       $row = $this->db->fetchByAssoc($result);
-		$user_array = array('client_consultant_id'=>$client_consultant_id,'case_id'=>$case_id,'consultant'=>$consultant,'casename'=> $casename,'credit_alloc_notes'=>$credit_alloc_notes,'credit_date'=>$credit_date,'clientname'=>$clientname,'clientid'=>$clientid);  
-		return $user_array;
-		  
-   // return $result;
-	
-	}
-
-
-
-
 
 	function getCaseSubjectAnsClientNameCredits_default($case_type,$case_status_comp,$case_status_ab,$user_id,$From_date,$To_date )
 	{
@@ -921,29 +841,6 @@ $credits=0;
 
 return ($credits);
 	
-	}	
-	
-// Subcase
-
-	function get_cases_subcaes($case_id)
-	{
-	    global  $db,$current_user; 
-		
-	    $ret_array = array();
-		$subcase_id = array();
-		$subcase_name = array();
-
-		$query = "SELECT oa_officeactions.name AS subcase_name ,oa_officeactions.id AS subcase_id,cases.name AS case_name FROM oa_officeactions, oa_officeactions_cases_c, cases WHERE oa_officeactions.id = oa_officeactions_cases_c.oa_officeactions_casesoa_officeactions_idb AND cases.id = oa_officeactions_cases_c.oa_officeactions_casescases_ida AND cases.id='".$case_id."' AND oa_officeactions.deleted = 0 AND oa_officeactions_cases_c.deleted = 0 AND cases.deleted = 0 "; 
-
-
-//echo $query;
-        $result = $this->db->query($query, true, " Error filling in additional detail fields: ");
-        while ($row = $db->fetchByAssoc($result)) {
-				array_push($subcase_name, $row['subcase_name']);
-				array_push($subcase_id, $row['subcase_id']);
-   		 }
-		$user_array = array('subcase_name'=>$subcase_name,'subcase_id'=>$subcase_id);  
-		return $user_array;
 	}	
 
 }
