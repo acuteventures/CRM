@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:47:04
+<?php /* Smarty version 2.6.11, created on 2012-09-04 15:06:10
          compiled from cache/modules/Inv_Inventions/SearchForm_popup_query_form.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'counter', 'cache/modules/Inv_Inventions/SearchForm_popup_query_form.tpl', 6, false),array('function', 'math', 'cache/modules/Inv_Inventions/SearchForm_popup_query_form.tpl', 7, false),array('function', 'sugar_getimagepath', 'cache/modules/Inv_Inventions/SearchForm_popup_query_form.tpl', 15, false),array('function', 'sugar_translate', 'cache/modules/Inv_Inventions/SearchForm_popup_query_form.tpl', 24, false),array('function', 'sugar_getimage', 'cache/modules/Inv_Inventions/SearchForm_popup_query_form.tpl', 66, false),)), $this); ?>

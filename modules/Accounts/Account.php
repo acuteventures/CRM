@@ -346,33 +346,35 @@ class Account extends Company {
 	function create_new_list_query($order_by, $where,$filter=array(),$params=array(), $show_deleted = 0,$join_type='', $return_array = false, $parentbean = null, $singleSelect = false){
 		global $current_user;
 		$table_name = $this->table_name;
-		$ret_array = parent::create_new_list_query($order_by, $where, $filter, $params, $show_deleted, $join_type, true, $parentbean, $singleSelect);
-
+		$ret_array = parent::create_new_list_query($order_by, $where, $filter, $params, $show_deleted, $join_type, true, $parentbean, $singleSelect);		
 		
-		
-		if($_REQUEST['query_string'] == ""){	
+		/*if($_REQUEST['query_string'] == ""){	
 			//$ret_array['from_min'] = "";
 			$ret_array['where'] = "";
 			$ret_array['from'] ="" ;
 			//$ret_array['order_by'] = "";
 			$ret_array['select'] = " SELECT * FROM accounts ";
-		}
+		}*/ //commented by veon
 
 		
 		//$ret_array['select'] = " SELECT * FROM accounts WHERE deleted = '0' ";
 		//by anuradha 5-7-2012: placing if condition & FROM accounts & accounts.date_entered & assigned_user_id
-		if($_REQUEST['accountfilter_basic'][0] == 'all_clients'){
-		$ret_array['where'] = " WHERE accounts.deleted = '0' ";
-			if(!empty($_REQUEST['name_basic'])){
-                            //by anuradha on 14-7-2012
-                            $ret_array['where'].= " AND accounts.name like '%".$_REQUEST['name_basic']."%' ";
+		if($_REQUEST['accountfilter_basic'][0] == 'all_clients')
+		{
+			$ret_array['where'] = " WHERE accounts.deleted = '0' ";
+			if(!empty($_REQUEST['name_basic']))
+			{
+				//by anuradha on 14-7-2012
+				$ret_array['where'].= " AND accounts.name like '%".$_REQUEST['name_basic']."%' ";
 			}
 			#Rajesh G - 24/07/12
-			if($_REQUEST['viewasfilter_basic'][0] != "" && $_REQUEST['viewasfilter_basic'][0] != "all" ){
+			if($_REQUEST['viewasfilter_basic'][0] != "" && $_REQUEST['viewasfilter_basic'][0] != "all" )
+			{
 				$ret_array['where'] .= "  AND accounts.assigned_user_id = '".$_REQUEST['viewasfilter_basic'][0]."'";
 			}
 		}
-		elseif($_REQUEST['accountfilter_basic'][0] == 'all_leads'){
+		elseif($_REQUEST['accountfilter_basic'][0] == 'all_leads')
+		{
 			$ret_array['select'] = " SELECT distinct 
                             accounts.id,
                             accounts.`name`,
@@ -386,35 +388,39 @@ class Account extends Company {
                             accounts.first_name,
                             accounts.last_name,
                             accounts.mobile
-                            from accounts LEFT JOIN cases ON cases.account_id = accounts.id LEFT JOIN c_case_status ON cases.status = c_case_status.id ";
+                             ";
+							 
+			$ret_array['from'] .= " LEFT JOIN cases ON cases.account_id = accounts.id LEFT JOIN c_case_status ON  cases.status = c_case_status.id " ;
 			
 
 			//* By preethi according to new condition on 16-08-2012
-			$ret_array['where'] .= "WHERE (c_case_status.order_no < 20 AND accounts.id not in (select accounts.id from accounts LEFT JOIN cases ON cases.account_id = accounts.id LEFT JOIN c_case_status ON cases.status = c_case_status.id
-			 where c_case_status.order_no >= 20 AND accounts.deleted = '0' AND cases.deleted = '0' AND c_case_status.deleted = '0') AND cases.deleted = '0' AND c_case_status.deleted = '0' ";
+			$ret_array['where'] = " WHERE (c_case_status.order_no < 20 AND accounts.id not in (select accounts.id from accounts LEFT JOIN cases ON cases.account_id = accounts.id LEFT JOIN c_case_status ON cases.status = c_case_status.id
+			  AND c_case_status.order_no >= 20 AND accounts.deleted = '0' AND cases.deleted = '0' AND c_case_status.deleted = '0') AND cases.deleted = '0' AND c_case_status.deleted = '0' ";
 			 
 			//if employee is selected
-			if($_REQUEST['viewasfilter_basic'][0] != "" && $_REQUEST['viewasfilter_basic'][0] != "all" ){
+			if($_REQUEST['viewasfilter_basic'][0] != "" && $_REQUEST['viewasfilter_basic'][0] != "all" )
+			{
 				// if last name is given
-				if(!empty($_REQUEST['name_basic'])){
+				if(!empty($_REQUEST['name_basic']))
+				{
 					$ret_array['where'] .= " AND accounts.assigned_user_id = '".$_REQUEST['viewasfilter_basic'][0]."' AND accounts.name like '%".$_REQUEST['name_basic']."%') || (accounts.id not in(select cases.account_id from cases) AND accounts.assigned_user_id = '".$_REQUEST['viewasfilter_basic'][0]."' AND accounts.name like '%".$_REQUEST['name_basic']."%') AND accounts.deleted = '0'";
-				}else{ // if last name is given
+				}
+				else{ // if last name is given
 					$ret_array['where'] .= " AND accounts.assigned_user_id = '".$_REQUEST['viewasfilter_basic'][0]."') || (accounts.id not in(select cases.account_id from cases) AND accounts.assigned_user_id = '".$_REQUEST['viewasfilter_basic'][0]."') AND accounts.deleted = '0'";
 				}
- 		    }else{   //if employee is not selected
+ 		    }
+			else
+			{   //if employee is not selected
 				// if last name is given
-				if(!empty($_REQUEST['name_basic'])){
+				if(!empty($_REQUEST['name_basic']))
+				{
 					$ret_array['where'] .= " AND accounts.name like '%".$_REQUEST['name_basic']."%') || (accounts.id not in(select cases.account_id from cases) AND accounts.name like '%".$_REQUEST['name_basic']."%') AND accounts.deleted = '0'";
-				}else{ // if last name is given
+				}else
+				{ // if last name is given
 					$ret_array['where'] .= " ) || (accounts.id not in(select cases.account_id from cases)) AND accounts.deleted = '0'";
 				}
 		    }//* End
-		}
-		//* Preethi Des: for filter in the popup
-		else{
-			$ret_array['where'] .= " WHERE accounts.name like '%".$_REQUEST['name_advanced']."%' AND accounts.deleted = '0'";
-		}
-		//* End
+		}		
 		return $ret_array;
 	}
 }

@@ -9,3 +9,4 @@ $dictionary['Account']['unified_search_default_enabled'] = true;
 
 $dictionary['Account']['fields']['phone_alternate']['unified_search'] = true;
 $dictionary['Account']['fields']['mobile']['unified_search'] = true;
+?>

@@ -127,6 +127,7 @@ array (
 		  1=>
 		  array(
 		  	'name' => 'case_end_date',
+			'customCode' => '{$fields.case_end_date.value} {$APP.LBL_BY} {$fields.case_end_user_name.value}', //* preethi on 31-08-2012
 		  ),
         ),
 		7=>

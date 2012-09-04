@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:12:43
+<?php /* Smarty version 2.6.11, created on 2012-09-04 18:41:36
          compiled from cache/modules/oa_officeactions/EditView.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/oa_officeactions/EditView.tpl', 36, false),array('function', 'counter', 'cache/modules/oa_officeactions/EditView.tpl', 42, false),array('function', 'sugar_translate', 'cache/modules/oa_officeactions/EditView.tpl', 48, false),array('function', 'sugar_getimage', 'cache/modules/oa_officeactions/EditView.tpl', 97, false),array('function', 'sugar_number_format', 'cache/modules/oa_officeactions/EditView.tpl', 138, false),array('function', 'html_options', 'cache/modules/oa_officeactions/EditView.tpl', 257, false),array('function', 'sugar_getimagepath', 'cache/modules/oa_officeactions/EditView.tpl', 285, false),array('modifier', 'default', 'cache/modules/oa_officeactions/EditView.tpl', 43, false),array('modifier', 'strip_semicolon', 'cache/modules/oa_officeactions/EditView.tpl', 49, false),array('modifier', 'lookup', 'cache/modules/oa_officeactions/EditView.tpl', 282, false),array('modifier', 'count', 'cache/modules/oa_officeactions/EditView.tpl', 362, false),)), $this); ?>
@@ -593,6 +593,19 @@ SyncToHidden(e.result.raw.key);
 
 <?php ob_start(); ?>
 <tr>
+<td valign="top" id='credit_date_label' width='12.5%' scope="col">
+<?php ob_start();  echo smarty_function_sugar_translate(array('label' => 'LBL_CREDIT_DATE','module' => 'oa_officeactions'), $this); $this->_smarty_vars['capture']['label'] = ob_get_contents();  $this->assign('label', ob_get_contents());ob_end_clean(); ?>
+<label for="credit_date"><?php echo ((is_array($_tmp=$this->_tpl_vars['label'])) ? $this->_run_mod_handler('strip_semicolon', true, $_tmp) : smarty_modifier_strip_semicolon($_tmp)); ?>
+:</label>
+</td>
+<?php echo smarty_function_counter(array('name' => 'fieldsUsed'), $this);?>
+
+
+<td valign="top" width='37.5%' >
+<?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
+
+<?php echo $this->_tpl_vars['CREDIT_DATE']; ?>
+
 <td valign="top" id='_label' width='12.5%' scope="col">
 &nbsp;
 </td>
@@ -602,15 +615,8 @@ SyncToHidden(e.result.raw.key);
 <td valign="top" width='37.5%' >
 <?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
-<input accesskey=""  tabindex="0"  type="hidden" name="subcase_number" id="subcase_number" readonly value="<?php echo $this->_tpl_vars['fields']['subcase_number']['value']; ?>
-">
-<td valign="top" id='_label' width='12.5%' scope="col">
-&nbsp;
-</td>
-<?php echo smarty_function_counter(array('name' => 'fieldsUsed'), $this);?>
-
-
-<td valign="top" width='37.5%' >
+<input accesskey=""  tabindex="0"  type="hidden" name="credit_dt_hidden" id="credit_dt_hidden" value=<?php echo $this->_tpl_vars['CREDIT_DATE_HID']; ?>
+ />
 </tr>
 <?php $this->_smarty_vars['capture']['tr'] = ob_get_contents();  $this->assign('tableRow', ob_get_contents());ob_end_clean();  if ($this->_tpl_vars['fieldsUsed'] > 0):  echo $this->_tpl_vars['tableRow']; ?>
 
@@ -652,38 +658,8 @@ tabindex='0'
 <td valign="top" width='37.5%' >
 <?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
+<?php echo $this->_tpl_vars['QB_DATE']; ?>
 
-<span class="dateTime">
-<?php $this->assign('date_value', $this->_tpl_vars['fields']['qb_date']['value']); ?>
-<input class="date_input" autocomplete="off" type="text" name="<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-" id="<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-" value="<?php echo $this->_tpl_vars['date_value']; ?>
-" title=''  tabindex='0'    size="11" maxlength="10" >
-<?php ob_start(); ?>alt="<?php echo $this->_tpl_vars['APP']['LBL_ENTER_DATE']; ?>
-" style="position:relative; top:6px" border="0" id="<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-_trigger"<?php $this->_smarty_vars['capture']['default'] = ob_get_contents();  $this->assign('other_attributes', ob_get_contents());ob_end_clean();  echo smarty_function_sugar_getimage(array('name' => 'jscalendar','ext' => ".gif",'other_attributes' => ($this->_tpl_vars['other_attributes'])), $this);?>
-
-</span>
-<script type="text/javascript">
-Calendar.setup ({
-inputField : "<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-",
-ifFormat : "<?php echo $this->_tpl_vars['CALENDAR_FORMAT']; ?>
-",
-daFormat : "<?php echo $this->_tpl_vars['CALENDAR_FORMAT']; ?>
-",
-button : "<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-_trigger",
-singleClick : true,
-dateStr : "<?php echo $this->_tpl_vars['date_value']; ?>
-",
-startWeekday: <?php echo ((is_array($_tmp=@$this->_tpl_vars['CALENDAR_FDOW'])) ? $this->_run_mod_handler('default', true, $_tmp, '0') : smarty_modifier_default($_tmp, '0')); ?>
-,
-step : 1,
-weekNumbers:false
-}
-);
-</script>
 </tr>
 <?php $this->_smarty_vars['capture']['tr'] = ob_get_contents();  $this->assign('tableRow', ob_get_contents());ob_end_clean();  if ($this->_tpl_vars['fieldsUsed'] > 0):  echo $this->_tpl_vars['tableRow']; ?>
 
@@ -691,49 +667,24 @@ weekNumbers:false
 
 <?php ob_start(); ?>
 <tr>
-<td valign="top" id='credit_date_label' width='12.5%' scope="col">
-<?php ob_start();  echo smarty_function_sugar_translate(array('label' => 'LBL_CREDIT_DATE','module' => 'oa_officeactions'), $this); $this->_smarty_vars['capture']['label'] = ob_get_contents();  $this->assign('label', ob_get_contents());ob_end_clean(); ?>
-<label for="credit_date"><?php echo ((is_array($_tmp=$this->_tpl_vars['label'])) ? $this->_run_mod_handler('strip_semicolon', true, $_tmp) : smarty_modifier_strip_semicolon($_tmp)); ?>
-:</label>
+<td valign="top" id='_label' width='12.5%' scope="col">
+&nbsp;
 </td>
 <?php echo smarty_function_counter(array('name' => 'fieldsUsed'), $this);?>
 
 
-<td valign="top" width='37.5%' colspan='3'>
+<td valign="top" width='37.5%' >
 <?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
+<input accesskey=""  tabindex="0"  type="hidden" name="subcase_number" id="subcase_number" readonly value="<?php echo $this->_tpl_vars['fields']['subcase_number']['value']; ?>
+">
+<td valign="top" id='_label' width='12.5%' scope="col">
+&nbsp;
+</td>
+<?php echo smarty_function_counter(array('name' => 'fieldsUsed'), $this);?>
 
-<span class="dateTime">
-<?php $this->assign('date_value', $this->_tpl_vars['fields']['credit_date']['value']); ?>
-<input class="date_input" autocomplete="off" type="text" name="<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-" id="<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-" value="<?php echo $this->_tpl_vars['date_value']; ?>
-" title=''  tabindex='0'    size="11" maxlength="10" >
-<?php ob_start(); ?>alt="<?php echo $this->_tpl_vars['APP']['LBL_ENTER_DATE']; ?>
-" style="position:relative; top:6px" border="0" id="<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-_trigger"<?php $this->_smarty_vars['capture']['default'] = ob_get_contents();  $this->assign('other_attributes', ob_get_contents());ob_end_clean();  echo smarty_function_sugar_getimage(array('name' => 'jscalendar','ext' => ".gif",'other_attributes' => ($this->_tpl_vars['other_attributes'])), $this);?>
 
-</span>
-<script type="text/javascript">
-Calendar.setup ({
-inputField : "<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-",
-ifFormat : "<?php echo $this->_tpl_vars['CALENDAR_FORMAT']; ?>
-",
-daFormat : "<?php echo $this->_tpl_vars['CALENDAR_FORMAT']; ?>
-",
-button : "<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-_trigger",
-singleClick : true,
-dateStr : "<?php echo $this->_tpl_vars['date_value']; ?>
-",
-startWeekday: <?php echo ((is_array($_tmp=@$this->_tpl_vars['CALENDAR_FDOW'])) ? $this->_run_mod_handler('default', true, $_tmp, '0') : smarty_modifier_default($_tmp, '0')); ?>
-,
-step : 1,
-weekNumbers:false
-}
-);
-</script>
+<td valign="top" width='37.5%' >
 </tr>
 <?php $this->_smarty_vars['capture']['tr'] = ob_get_contents();  $this->assign('tableRow', ob_get_contents());ob_end_clean();  if ($this->_tpl_vars['fieldsUsed'] > 0):  echo $this->_tpl_vars['tableRow']; ?>
 
@@ -914,6 +865,8 @@ addToValidate(\'EditView\', \'oa_officeactions_cases_name\', \'relate\', true,\'
 addToValidate(\'EditView\', \'amount_paid\', \'decimal\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_AMOUNT_PAID','module' => 'oa_officeactions','for_js' => true), $this); echo '\' );
 addToValidate(\'EditView\', \'qb_date\', \'date\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_QB_DATE','module' => 'oa_officeactions','for_js' => true), $this); echo '\' );
 addToValidate(\'EditView\', \'credit_date\', \'date\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_CREDIT_DATE','module' => 'oa_officeactions','for_js' => true), $this); echo '\' );
+addToValidate(\'EditView\', \'case_end_user_id\', \'char\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_CASE_END_USER_ID','module' => 'oa_officeactions','for_js' => true), $this); echo '\' );
+addToValidate(\'EditView\', \'case_end_user_name\', \'relate\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_CASE_END_USER_NAME','module' => 'oa_officeactions','for_js' => true), $this); echo '\' );
 addToValidate(\'EditView\', \'subcaseoverride\', \'bool\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_SUBCASE_OVERRIDE','module' => 'oa_officeactions','for_js' => true), $this); echo '\' );
 addToValidateBinaryDependency(\'EditView\', \'assigned_user_name\', \'alpha\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'ERR_SQS_NO_MATCH_FIELD','module' => 'oa_officeactions','for_js' => true), $this); echo ': ';  echo smarty_function_sugar_translate(array('label' => 'LBL_ASSIGNED_TO','module' => 'oa_officeactions','for_js' => true), $this); echo '\', \'assigned_user_id\' );
 addToValidateBinaryDependency(\'EditView\', \'oa_officeactions_cases_name\', \'alpha\', true,\'';  echo smarty_function_sugar_translate(array('label' => 'ERR_SQS_NO_MATCH_FIELD','module' => 'oa_officeactions','for_js' => true), $this); echo ': ';  echo smarty_function_sugar_translate(array('label' => 'LBL_OA_OFFICEACTIONS_CASES_FROM_CASES_TITLE','module' => 'oa_officeactions','for_js' => true), $this); echo '\', \'oa_officeactions_casescases_ida\' );

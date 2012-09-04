@@ -108,3 +108,27 @@
 	}
 	
 /**************************************************************************************************************************/
+
+/**
+ * Rajehs G - 30/08/2012
+ * Delete Cases/Invention
+ */
+function deleteRecord(id,module,recordId){
+        //alert(id+"--"+module);
+        var ask = confirm("Do you really want to delete this record?");
+        
+        if(ask == true){
+            var callback = {
+                success: function(o) {
+                    var str1 = o.responseText;
+                    alert(str1);
+                    window.location = "index.php?module=Accounts&action=DetailView&record="+recordId;
+                }
+            }
+            var connectionObject = YAHOO.util.Connect.asyncRequest ("POST", "DeleteInvCaseFromClient.php?recordId="+id+"&module="+module, callback);
+        }
+        else{
+                return false;
+        }
+    }
+/*****************end***********************/

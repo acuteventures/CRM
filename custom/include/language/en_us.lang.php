@@ -82,6 +82,12 @@ $GLOBALS['app_list_strings']['cases_filter_dom']=array (
     'search_prov_cases_incomplete' => 'Open Search & Provisional Cases',
     'cases_flagged' => 'Flagged Cases',
 	'open_cases' => 'Open Cases',	
+	//* preethi on 29-08-2012
+	'patents_issued' => 'Patents Issued',
+	'patent_filing_receipts_not_sent' => 'Patent Filing Receipts Not Sent',
+	'open_subcases' => 'Open Subcases',
+	'open_office_actions' => 'Open Office Actions',
+	//* End
 );
 
 $app_strings['LBL_GROUPTAB1_1343208319'] = '';

@@ -179,7 +179,33 @@ class oa_officeactionsViewEdit extends ViewEdit {
 		$this->ss->assign("CNT_VALUE", $i);
 		$this->ss->assign("CREDIT_ALLOCATION", $cr_allocation);
 		
-		
+                /**
+                * Rajes G - 31/08/2012
+                * Credit Date
+                */
+                $acl_role = new ACLRole();
+		$user_role = $acl_role->getUserRoles($current_user->id);
+                
+               if($user_role[0] == 'manager'){
+                   $credit_date = "<input type='text' id='credit_date' size='11' name = 'credit_date' value = '".$this->bean->credit_date."' /><img border='0' src='themes/Sugar5/images/jscalendar.gif?s=56edbfd31f58ddaef7105e2f7049754f&c=1' alt='Enter Date' id='created_trigger_cd_af' align='absmiddle' />";
+               }else{
+                   $credit_date = "<input type='text' id='credit_date' size='11' name='credit_date' value = '".$this->bean->credit_date."' readonly='readonly' title='Only managers can edit credit date' style='color:grey;background-color: #d7d3d3;' />";
+               }
+               
+               $this->ss->assign("CREDIT_DATE",$credit_date);
+               $this->ss->assign("CREDIT_DATE_HID",$this->bean->credit_date);
+		/**
+                * Rajes G - 01/09/2012
+                * Credit Date
+                */
+               if($user_role[0] == 'accounting'){
+                   $qb_date = "<input type='text' id='qb_date' size='11' name = 'qb_date' value = '".$this->bean->qb_date."' /><img border='0' src='themes/Sugar5/images/jscalendar.gif?s=56edbfd31f58ddaef7105e2f7049754f&c=1' alt='Enter Date' id='created_trigger_qb_dt' align='absmiddle' />";
+               }else{
+                   $qb_date = "<input type='text' id='qb_date' size='11' name='qb_date' value = '".$this->bean->qb_date."' readonly='readonly' title='Only accounting roles can edit qb date' style='color:grey;background-color: #d7d3d3;'/>";
+               }
+
+               $this->ss->assign("QB_DATE",$qb_date);
+               /*******End************/
  		parent::display();
 		echo $js;
  	}

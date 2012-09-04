@@ -11,7 +11,7 @@ class SubcaseStatusAge
 
 	function subcasestatusAge(&$bean, $event, $arguments)
 	{
-		global $db;
+		global $current_user,$db;
 		$bef_date = "";
 		$after_date = "";
 		//echo $bean->date_entered."asdfsadf";
@@ -80,6 +80,14 @@ class SubcaseStatusAge
 				$sql_case_status_age_new = " UPDATE `c_s_d_case_subcase_dashlet` SET case_subcase_status_age = '".$subcase_status_age."' WHERE case_subcase_id = '".$bean->id."'";
 				$db->query($sql_case_status_age_new);
 				// * End
+				//* preethi on 01-09-2012
+				//* des: updating the case end user id
+				if($bean->subcase_status_id == 'd7b78682-00e9-943d-ecc6-4ed9c63407f5'){
+					
+					$update_case_end_user_id = "UPDATE `oa_officeactions` SET case_end_user_id='".$current_user->id."' WHERE id='".$bean->id."'";
+					$res_update_case_end_user_id = $db->query($update_case_end_user_id);		
+				}
+				//* End
 			}
 		}
 	}

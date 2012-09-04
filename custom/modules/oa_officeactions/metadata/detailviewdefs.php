@@ -118,6 +118,7 @@ array (
 		 array(
 		  'name' => 'case_end_date',
 		  'label' => 'LBL_CASE_END_DATE',
+		  'customCode' => '{$fields.case_end_date.value} {$APP.LBL_BY} {$fields.case_end_user_name.value}', //* preethi on 01-09-2012
 		 ),
 		),
 		//start

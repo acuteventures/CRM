@@ -1,5 +1,5 @@
 <?php
-// created: 2012-08-27 11:12:08
+// created: 2012-09-04 14:15:08
 $mod_strings = array (
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
@@ -61,4 +61,7 @@ $mod_strings = array (
   'LBL_PARENT_SUBCASE_NAME' => 'Subcase Name',
   'LBL_VIEWAS_FILTER' => 'Employee',
   'LBL_PRIORITYDATE' => 'Priority Date',
+  'LBL_PATENT_NUMBER' => 'Patent Number',
+  'LBL_FILING_RECEIPT' => 'Filing Recipt',
+  'LBL_APPLICATION_NUMBER' => 'Application Number',
 );

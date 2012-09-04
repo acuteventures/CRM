@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:19:18
+<?php /* Smarty version 2.6.11, created on 2012-09-04 14:16:06
          compiled from modules/Connectors/connectors/sources/ext/rest/insideview/tpls/InsideView.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_getimagepath', 'modules/Connectors/connectors/sources/ext/rest/insideview/tpls/InsideView.tpl', 84, false),array('function', 'sugar_getimage', 'modules/Connectors/connectors/sources/ext/rest/insideview/tpls/InsideView.tpl', 89, false),)), $this); ?>

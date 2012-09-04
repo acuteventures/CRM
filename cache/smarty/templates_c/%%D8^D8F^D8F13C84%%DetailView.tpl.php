@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:13:05
+<?php /* Smarty version 2.6.11, created on 2012-09-04 14:30:43
          compiled from cache/modules/Cases/DetailView.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/Cases/DetailView.tpl', 32, false),array('function', 'counter', 'cache/modules/Cases/DetailView.tpl', 37, false),array('function', 'sugar_translate', 'cache/modules/Cases/DetailView.tpl', 38, false),array('function', 'sugar_ajax_url', 'cache/modules/Cases/DetailView.tpl', 158, false),array('function', 'sugar_number_format', 'cache/modules/Cases/DetailView.tpl', 498, false),array('function', 'sugar_getjspath', 'cache/modules/Cases/DetailView.tpl', 852, false),array('modifier', 'strip_semicolon', 'cache/modules/Cases/DetailView.tpl', 48, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/Cases/DetailView.tpl', 32, false),array('function', 'counter', 'cache/modules/Cases/DetailView.tpl', 37, false),array('function', 'sugar_translate', 'cache/modules/Cases/DetailView.tpl', 38, false),array('function', 'sugar_ajax_url', 'cache/modules/Cases/DetailView.tpl', 158, false),array('function', 'sugar_number_format', 'cache/modules/Cases/DetailView.tpl', 492, false),array('function', 'sugar_getjspath', 'cache/modules/Cases/DetailView.tpl', 846, false),array('modifier', 'strip_semicolon', 'cache/modules/Cases/DetailView.tpl', 48, false),)), $this); ?>
 
 
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="actionsContainer">
@@ -388,10 +388,9 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_inclu
 <td width='37.5%'  >
 <?php if (! $this->_tpl_vars['fields']['case_end_date']['hidden']):  echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
-
-<?php if (strlen ( $this->_tpl_vars['fields']['case_end_date']['value'] ) <= 0):  $this->assign('value', $this->_tpl_vars['fields']['case_end_date']['default_value']);  else:  $this->assign('value', $this->_tpl_vars['fields']['case_end_date']['value']);  endif; ?> 
-<span class="sugar_field" id="<?php echo $this->_tpl_vars['fields']['case_end_date']['name']; ?>
-"><?php echo $this->_tpl_vars['fields']['case_end_date']['value']; ?>
+<span id="case_end_date" class="sugar_field"><?php echo $this->_tpl_vars['fields']['case_end_date']['value']; ?>
+ <?php echo $this->_tpl_vars['APP']['LBL_BY']; ?>
+ <?php echo $this->_tpl_vars['fields']['case_end_user_name']['value']; ?>
 </span>
 <?php endif; ?>
 </td>

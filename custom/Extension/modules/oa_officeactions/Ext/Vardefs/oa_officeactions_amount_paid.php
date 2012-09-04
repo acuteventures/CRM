@@ -51,3 +51,41 @@ $dictionary["oa_officeactions"]["fields"]["credit_date"] = array (
     'size' => '20',
     'enable_range_search' => false,
 );
+//* preethi on 01-09-2012
+//* Des : added new filed 
+$dictionary["oa_officeactions"]["fields"]['case_end_user_id'] = array(
+    'required' => false,
+    'name' => 'case_end_user_id',
+    'vname' => 'LBL_CASE_END_USER_ID',
+    'type' => 'char',
+    'massupdate' => 0,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'disabled',
+    'duplicate_merge_dom_value' => '0',
+    'audited' => false,
+    'reportable' => true,
+    'len' => 36,
+    'size' => '36',
+);
+$dictionary["oa_officeactions"]["fields"]['case_end_user_name'] = array(
+    'name' => 'case_end_user_name',
+    'rname' => 'name',
+    'id_name' => 'case_end_user_id',
+    'vname' => 'LBL_CASE_END_USER_NAME',
+    'type' => 'relate',
+    'link'=>'Users',
+    'table' => 'users',
+    'isnull' => 'true',
+    'module' => 'Users',
+    'dbType' => 'varchar',
+    'len' => 100,
+    'source'=>'non-db',
+    'unified_search' => true,
+    'comment' => '',
+    'required' => false,
+    'importable' => 'required',
+);
+//* End
+?>

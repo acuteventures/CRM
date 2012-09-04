@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:19:09
+<?php /* Smarty version 2.6.11, created on 2012-09-04 14:15:58
          compiled from cache/modules/Accounts/SearchForm_basic.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'counter', 'cache/modules/Accounts/SearchForm_basic.tpl', 12, false),array('function', 'math', 'cache/modules/Accounts/SearchForm_basic.tpl', 13, false),array('function', 'sugar_translate', 'cache/modules/Accounts/SearchForm_basic.tpl', 22, false),array('function', 'html_options', 'cache/modules/Accounts/SearchForm_basic.tpl', 56, false),array('function', 'sugar_getimagepath', 'cache/modules/Accounts/SearchForm_basic.tpl', 92, false),array('modifier', 'count', 'cache/modules/Accounts/SearchForm_basic.tpl', 79, false),)), $this); ?>

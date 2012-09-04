@@ -12,7 +12,7 @@ class saveCase {
 			
 			if($count >0){
 				//echo EDIT;
-				$update = "UPDATE `c_s_d_case_subcase_dashlet` SET `name`='".$bean->name."', `modified_user_id`='".$bean->modified_user_id."', `created_by`='".$bean->created_by."', `assigned_user_id`='".$bean->assigned_user_id."', `case_type_id`='".$bean->type."', `status`='".$bean->status."', `invention_id`='".$bean->invention_id."', `account_id`='".$bean->account_id."', `client_consultant_id`='".$bean->client_consultant_id."', `due_date`='".$bean->due_date."', `parent_case_id`='".$bean->id."' WHERE case_subcase_id='".$bean->id."'";
+				$update = "UPDATE `c_s_d_case_subcase_dashlet` SET `name`='".$bean->name."', `modified_user_id`='".$bean->modified_user_id."', `created_by`='".$bean->created_by."', `assigned_user_id`='".$bean->assigned_user_id."', `case_type_id`='".$bean->type."', `status`='".$bean->status."', `invention_id`='".$bean->invention_id."', `account_id`='".$bean->account_id."', `client_consultant_id`='".$bean->client_consultant_id."', `due_date`='".$bean->due_date."', `patent_number`='".$bean->patent_number."', `freceipt`='".$bean->freceipt."', `application_number`='".$bean->application_number."', `parent_case_id`='".$bean->id."' WHERE case_subcase_id='".$bean->id."'";
 				$update_query = $db->query($update);
 			}else{
 				//echo ADD;
@@ -33,6 +33,9 @@ class saveCase {
 				$focus->client_consultant_id	= $bean->client_consultant_id;
 				$focus->case_subcase_status_age	= $bean->case_status_age;
 				$focus->due_date				= $bean->due_date;
+				$focus->patent_number		    = $bean->patent_number;  //* preethi on 29-08-2012
+				$focus->freceipt		        = $bean->freceipt;  //* preethi on 29-08-2012
+				$focus->application_number		= $bean->application_number;  //* preethi on 29-08-2012
 				$focus->parent_case_id		    = $bean->id;
 				$focus->save();
 			}

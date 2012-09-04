@@ -512,6 +512,46 @@ $dictionary['c_s_d_case_subcase_dashlet'] = array(
 						'display_default' => '',
 					),
 			 // * End
+			 //* Preethi on 29-08-2012
+			 // Des : added new fields for the filters in joint module
+		   'patent_number' => 
+					array (
+						'name' => 'patent_number',
+						'vname' => 'LBL_PATENT_NUMBER',
+						'type' => 'varchar',
+						'len' => 255,
+						'required' => false,
+						'auto_increment' => false,
+						'unified_search' => true,
+						'comment' => '',
+						'duplicate_merge' => 'disabled',
+						'disable_num_format' => true,
+					),
+		   'freceipt' => 
+					array (
+						'name' => 'freceipt',
+						'vname' => 'LBL_FILING_RECEIPT',
+						'type' => 'int',
+						'required' => false,
+						'unified_search' => true,
+						'comment' => '',
+						'duplicate_merge' => 'disabled',
+						'disable_num_format' => true,
+					),
+		   'application_number' => 
+					array (
+						'name' => 'application_number',
+						'vname' => 'LBL_APPLICATION_NUMBER',
+						'type' => 'varchar',
+						'len' => 255,
+						'required' => false,
+						'auto_increment' => false,
+						'unified_search' => true,
+						'comment' => '',
+						'duplicate_merge' => 'disabled',
+						'disable_num_format' => true,
+					),
+			//* End
 		),
 	'relationships'=>array (
 ),

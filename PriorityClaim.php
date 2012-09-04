@@ -83,7 +83,11 @@ Modified Last : 06-Feb-2012.
 			$cs_type = new c_case_type();
 			$rec_type = $cs_type->retrieve($row_cases['type']);
 			
-			$sql_check = "SELECT * FROM cp_claimpriority WHERE claimed_case_id = '".$row_cases['id']."' AND deleted = '0'";
+			//* preethi on 31-08-2012
+			//* Des : changed the below query
+			//$sql_check = "SELECT * FROM cp_claimpriority WHERE claimed_case_id = '".$row_cases['id']."' AND deleted = '0'";
+			$sql_check = "SELECT * FROM cp_claimpriority WHERE claimed_case_id = '".$row_cases['id']."' AND acase_id_c = '".$_REQUEST['record']."' AND deleted = '0'";
+			
 			$res_check = $db->query($sql_check);
 			echo "<li>";
 			

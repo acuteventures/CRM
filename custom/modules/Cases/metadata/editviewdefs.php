@@ -135,10 +135,10 @@ $viewdefs['Cases']['EditView'] = array(
                    array(
                             'name' => 'priority',
                     ),
-		   array(
+		   /*array(
 			    'name' => 'patent_number',
 			    'customCode' =>'<input type = "text" name = "patent_number" id = "patent_number" value = "{$PATENT_NUMBER_VALUE}" style="{$PATENT_NUMBER_HIDE}" />',
-		   ),
+		   ),*/
 
             ),
 	 
@@ -150,6 +150,7 @@ $viewdefs['Cases']['EditView'] = array(
 		),
 		array(
 			'name' => 'qb_date',
+                        'customCode' => '{$QB_DATE}',
 		),
 
     ),
@@ -187,7 +188,8 @@ $viewdefs['Cases']['EditView'] = array(
 	   		),
 
 			array (
-		    	'name' => 'credit_date',		    	
+		    	'name'=>'credit_date',
+                        'customCode' => '{$CREDIT_DATE}',		    	
 	   		),
 	   ),
 	   array (
@@ -198,7 +200,7 @@ $viewdefs['Cases']['EditView'] = array(
 	   ),
 	   array (
 		    array (
-		    	'customCode' => '{$CREDIT_ALLOCATION}<input type = "hidden" name = "cnt_value" id = "cnt_value" value = "{$CNT_VALUE}" />',
+		    	'customCode' => '{$CREDIT_ALLOCATION}<input type = "hidden" name = "cnt_value" id = "cnt_value" value = "{$CNT_VALUE}" /> <input type="hidden" name="credit_dt_hidden" id="credit_dt_hidden" value={$CREDIT_DATE_HID} />',
 	   		),
 	   ),
 	),
@@ -222,7 +224,12 @@ $viewdefs['Cases']['EditView'] = array(
 			'label' => 'LBL_FILING_RECEIPT',
 			'customCode' => '<input type = "checkbox" id = "freceipt" name = "freceipt"  onclick = changeFrecipt() {$F_RECEIPT} value = "{$FRECIPT_VALUE}" />'
 		    ),
-			
+			//* preethi on 03-09-2012
+			array(
+			    'name' => 'patent_number',
+			    'customCode' =>'<input type = "text" name = "patent_number" id = "patent_number" value = "{$PATENT_NUMBER_VALUE}" style="{$PATENT_NUMBER_HIDE}" />',
+		   ),
+		   //* End			
 	   ),
 	),
 
@@ -550,14 +557,19 @@ $viewdefs['Cases']['EditView'] = array(
 		
 		var e = document.getElementById("status");
 		var csStatus = e.options[e.selectedIndex].text;
-		document.getElementById('credit_date').value = "";
-		if(csStatus == "Completed"){
-			var currentDate = new Date();
-			var day = currentDate.getDate();
-			var month = currentDate.getMonth()+1; 
-			var year = currentDate.getFullYear();
-			document.getElementById('credit_date').value = month+"/"+day+"/"+year;
-		}
+		var creditDt = document.getElementById('credit_dt_hidden').value;
+                if(creditDt.length <= 1){
+                    if(csStatus == "Completed" || csStatus == "Abandoned"){
+                            var currentDate = new Date();
+                            var day = currentDate.getDate();
+                            var month = currentDate.getMonth()+1; 
+                            var year = currentDate.getFullYear();
+                            document.getElementById('credit_date').value = month+"/"+day+"/"+year;
+                    }
+                    else{
+                        document.getElementById('credit_date').value = "";
+                    }
+                }
 	}
 
 
@@ -597,6 +609,31 @@ $viewdefs['Cases']['EditView'] = array(
 			}
 	);
 
+        //credit_date
+        //Rajesh G - 31/08/2012
+        Calendar.setup ({
+			inputField : "credit_date",
+			daFormat : "%m/%d/%Y %I:%M%P",
+			button : "created_trigger_cd_af",
+			singleClick : true,
+			dateStr : "",
+			step : 1,
+			weekNumbers:false
+			}
+	);
+            
+        //credit_date
+        //Rajesh G - 31/08/2012
+        Calendar.setup ({
+			inputField : "qb_date",
+			daFormat : "%m/%d/%Y %I:%M%P",
+			button : "created_trigger_qb_dt",
+			singleClick : true,
+			dateStr : "",
+			step : 1,
+			weekNumbers:false
+			}
+	);
 // Author : Basudeba Rath, Date : 22-Jun-2012.
 
 	function changeFrecipt(){

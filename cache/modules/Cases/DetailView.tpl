@@ -341,13 +341,7 @@
 <td width='37.5%'  >
 {if !$fields.case_end_date.hidden}
 {counter name="panelFieldCount"}
-
-{if strlen($fields.case_end_date.value) <= 0}
-{assign var="value" value=$fields.case_end_date.default_value }
-{else}
-{assign var="value" value=$fields.case_end_date.value }
-{/if} 
-<span class="sugar_field" id="{$fields.case_end_date.name}">{$fields.case_end_date.value}</span>
+<span id="case_end_date" class="sugar_field">{$fields.case_end_date.value} {$APP.LBL_BY} {$fields.case_end_user_name.value}</span>
 {/if}
 </td>
 </tr>

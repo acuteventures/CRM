@@ -37,7 +37,6 @@
 /**
  * THIS CLASS IS FOR DEVELOPERS TO MAKE CUSTOMIZATIONS IN
  */
- // svn trail
 require_once('modules/c_s_d_case_subcase_dashlet/c_s_d_case_subcase_dashlet_sugar.php');
 class c_s_d_case_subcase_dashlet extends c_s_d_case_subcase_dashlet_sugar {
 	
@@ -216,8 +215,52 @@ class c_s_d_case_subcase_dashlet extends c_s_d_case_subcase_dashlet_sugar {
                 $ret_array['where'] .= ' AND fc_flag_cases.flagged_user_id = "' . $_REQUEST['viewasfilter_basic'][0] . '" AND fc_flag_cases.deleted = "0" ';
             }
         }
-		
-		
+		//* preethi on 29-08-2012
+		//Des : queries for additional filters
+		//* 26. Patents Issued
+		else if ($_REQUEST['casesfilter_basic'][0] == 'patents_issued') 
+		{ 
+			$ret_array['select'] = " SELECT distinct c_s_d_case_subcase_dashlet.id , c_s_d_case_subcase_dashlet.parent_case_id, jt0.name parent_case_name , c_s_d_case_subcase_dashlet.parent_subcase_id, jt1.name parent_subcase_name , c_s_d_case_subcase_dashlet.account_id, jt2.name account_name , c_s_d_case_subcase_dashlet.client_consultant_id, LTRIM(RTRIM(CONCAT(IFNULL(jt3.first_name,''),' ',IFNULL(jt3.last_name,'')))) client_consultant_name , c_s_d_case_subcase_dashlet.case_type_id, jt4.name case_type_name , c_s_d_case_subcase_dashlet.sub_case_type_id, jt5.name subcase_name , c_s_d_case_subcase_dashlet.status, jt6.name status_name , c_s_d_case_subcase_dashlet.case_subcase_status_age , c_s_d_case_subcase_dashlet.due_date , c_s_d_case_subcase_dashlet.prioritydate, c_s_d_case_subcase_dashlet.assigned_user_id ";
+			
+			$ret_array['where'] = ' WHERE c_s_d_case_subcase_dashlet.patent_number != "" AND c_s_d_case_subcase_dashlet.patent_number != 0 AND c_s_d_case_subcase_dashlet.deleted =  "0" ';
+            if($_REQUEST['viewasfilter_basic'][0] != "all"){
+                $ret_array['where'] .= ' AND c_s_d_case_subcase_dashlet.client_consultant_id = "'.$_REQUEST['viewasfilter_basic'][0].'" ';
+            }
+        }
+		//* 27. Patent Filing Receipts Not Sent
+		else if ($_REQUEST['casesfilter_basic'][0] == 'patent_filing_receipts_not_sent') 
+		{ 
+			$ret_array['select'] = " SELECT distinct c_s_d_case_subcase_dashlet.id , c_s_d_case_subcase_dashlet.parent_case_id, jt0.name parent_case_name , c_s_d_case_subcase_dashlet.parent_subcase_id, jt1.name parent_subcase_name , c_s_d_case_subcase_dashlet.account_id, jt2.name account_name , c_s_d_case_subcase_dashlet.client_consultant_id, LTRIM(RTRIM(CONCAT(IFNULL(jt3.first_name,''),' ',IFNULL(jt3.last_name,'')))) client_consultant_name , c_s_d_case_subcase_dashlet.case_type_id, jt4.name case_type_name , c_s_d_case_subcase_dashlet.sub_case_type_id, jt5.name subcase_name , c_s_d_case_subcase_dashlet.status, jt6.name status_name , c_s_d_case_subcase_dashlet.case_subcase_status_age , c_s_d_case_subcase_dashlet.due_date , c_s_d_case_subcase_dashlet.prioritydate, c_s_d_case_subcase_dashlet.assigned_user_id ";
+			
+			$ret_array['where'] = ' WHERE c_s_d_case_subcase_dashlet.application_number != "" AND c_s_d_case_subcase_dashlet.application_number != 0 AND c_s_d_case_subcase_dashlet.freceipt = 0 AND c_s_d_case_subcase_dashlet.deleted =  "0" ';
+			
+            if($_REQUEST['viewasfilter_basic'][0] != "all"){
+                $ret_array['where'] .= ' AND c_s_d_case_subcase_dashlet.client_consultant_id = "'.$_REQUEST['viewasfilter_basic'][0].'" ';
+            }
+        }
+		//* 28. Open Subcases
+		else if ($_REQUEST['casesfilter_basic'][0] == 'open_subcases') 
+		{ 
+			$ret_array['select'] = " SELECT distinct c_s_d_case_subcase_dashlet.id , c_s_d_case_subcase_dashlet.parent_case_id, jt0.name parent_case_name , c_s_d_case_subcase_dashlet.parent_subcase_id, jt1.name parent_subcase_name , c_s_d_case_subcase_dashlet.account_id, jt2.name account_name , c_s_d_case_subcase_dashlet.client_consultant_id, LTRIM(RTRIM(CONCAT(IFNULL(jt3.first_name,''),' ',IFNULL(jt3.last_name,'')))) client_consultant_name , c_s_d_case_subcase_dashlet.case_type_id, jt4.name case_type_name , c_s_d_case_subcase_dashlet.sub_case_type_id, jt5.name subcase_name , c_s_d_case_subcase_dashlet.status, jt6.name status_name , c_s_d_case_subcase_dashlet.case_subcase_status_age , c_s_d_case_subcase_dashlet.due_date , c_s_d_case_subcase_dashlet.prioritydate, c_s_d_case_subcase_dashlet.assigned_user_id ";
+			
+			$ret_array['where'] = ' WHERE c_s_d_case_subcase_dashlet.parent_subcase_id != "" AND c_s_d_case_subcase_dashlet.parent_case_id = "" AND c_s_d_case_subcase_dashlet.deleted =  "0" AND jt6.order_no != 100 AND jt6.order_no != 0 ';
+			
+            if($_REQUEST['viewasfilter_basic'][0] != "all"){
+                $ret_array['where'] .= ' AND c_s_d_case_subcase_dashlet.client_consultant_id = "'.$_REQUEST['viewasfilter_basic'][0].'" ';
+            }
+        }
+		//* 29. Open Office Actions 
+		else if ($_REQUEST['casesfilter_basic'][0] == 'open_office_actions') 
+		{ 
+			$ret_array['select'] = " SELECT distinct c_s_d_case_subcase_dashlet.id , c_s_d_case_subcase_dashlet.parent_case_id, jt0.name parent_case_name , c_s_d_case_subcase_dashlet.parent_subcase_id, jt1.name parent_subcase_name , c_s_d_case_subcase_dashlet.account_id, jt2.name account_name , c_s_d_case_subcase_dashlet.client_consultant_id, LTRIM(RTRIM(CONCAT(IFNULL(jt3.first_name,''),' ',IFNULL(jt3.last_name,'')))) client_consultant_name , c_s_d_case_subcase_dashlet.case_type_id, jt4.name case_type_name , c_s_d_case_subcase_dashlet.sub_case_type_id, jt5.name subcase_name , c_s_d_case_subcase_dashlet.status, jt6.name status_name , c_s_d_case_subcase_dashlet.case_subcase_status_age , c_s_d_case_subcase_dashlet.due_date , c_s_d_case_subcase_dashlet.prioritydate, c_s_d_case_subcase_dashlet.assigned_user_id ";
+			
+			$ret_array['where'] = ' WHERE c_s_d_case_subcase_dashlet.parent_subcase_id != "" AND c_s_d_case_subcase_dashlet.parent_case_id = "" AND (jt5.subcase_type_code="OA" || jt5.subcase_type_code="AL" || jt5.subcase_type_code="SU" || jt5.subcase_type_code="RG") AND jt6.order_no != 100 AND jt6.order_no != 0 AND c_s_d_case_subcase_dashlet.deleted =  "0"';
+			
+            if($_REQUEST['viewasfilter_basic'][0] != "all"){
+                $ret_array['where'] .= ' AND c_s_d_case_subcase_dashlet.client_consultant_id = "'.$_REQUEST['viewasfilter_basic'][0].'" ';
+            }
+        }
+		//* End
 		return $ret_array;
 	}
 	

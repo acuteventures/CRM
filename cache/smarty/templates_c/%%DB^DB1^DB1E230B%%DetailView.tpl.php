@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:17:15
+<?php /* Smarty version 2.6.11, created on 2012-09-04 18:40:05
          compiled from cache/modules/oa_officeactions/DetailView.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/oa_officeactions/DetailView.tpl', 31, false),array('function', 'counter', 'cache/modules/oa_officeactions/DetailView.tpl', 36, false),array('function', 'sugar_translate', 'cache/modules/oa_officeactions/DetailView.tpl', 45, false),array('function', 'sugar_ajax_url', 'cache/modules/oa_officeactions/DetailView.tpl', 125, false),array('function', 'sugar_number_format', 'cache/modules/oa_officeactions/DetailView.tpl', 195, false),array('function', 'sugar_getjspath', 'cache/modules/oa_officeactions/DetailView.tpl', 580, false),array('modifier', 'strip_semicolon', 'cache/modules/oa_officeactions/DetailView.tpl', 46, false),array('modifier', 'escape', 'cache/modules/oa_officeactions/DetailView.tpl', 81, false),array('modifier', 'url2html', 'cache/modules/oa_officeactions/DetailView.tpl', 81, false),array('modifier', 'nl2br', 'cache/modules/oa_officeactions/DetailView.tpl', 81, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/oa_officeactions/DetailView.tpl', 31, false),array('function', 'counter', 'cache/modules/oa_officeactions/DetailView.tpl', 36, false),array('function', 'sugar_translate', 'cache/modules/oa_officeactions/DetailView.tpl', 45, false),array('function', 'sugar_ajax_url', 'cache/modules/oa_officeactions/DetailView.tpl', 125, false),array('function', 'sugar_number_format', 'cache/modules/oa_officeactions/DetailView.tpl', 195, false),array('function', 'sugar_getjspath', 'cache/modules/oa_officeactions/DetailView.tpl', 574, false),array('modifier', 'strip_semicolon', 'cache/modules/oa_officeactions/DetailView.tpl', 46, false),array('modifier', 'escape', 'cache/modules/oa_officeactions/DetailView.tpl', 81, false),array('modifier', 'url2html', 'cache/modules/oa_officeactions/DetailView.tpl', 81, false),array('modifier', 'nl2br', 'cache/modules/oa_officeactions/DetailView.tpl', 81, false),)), $this); ?>
 
 
 <table cellpadding="1" cellspacing="0" border="0" width="100%" class="actionsContainer">
@@ -289,10 +289,9 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_inclu
 <td width='37.5%'  >
 <?php if (! $this->_tpl_vars['fields']['case_end_date']['hidden']):  echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
-
-<?php if (strlen ( $this->_tpl_vars['fields']['case_end_date']['value'] ) <= 0):  $this->assign('value', $this->_tpl_vars['fields']['case_end_date']['default_value']);  else:  $this->assign('value', $this->_tpl_vars['fields']['case_end_date']['value']);  endif; ?> 
-<span class="sugar_field" id="<?php echo $this->_tpl_vars['fields']['case_end_date']['name']; ?>
-"><?php echo $this->_tpl_vars['fields']['case_end_date']['value']; ?>
+<span id="case_end_date" class="sugar_field"><?php echo $this->_tpl_vars['fields']['case_end_date']['value']; ?>
+ <?php echo $this->_tpl_vars['APP']['LBL_BY']; ?>
+ <?php echo $this->_tpl_vars['fields']['case_end_user_name']['value']; ?>
 </span>
 <?php endif; ?>
 </td>

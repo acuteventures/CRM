@@ -219,7 +219,7 @@ weekNumbers:false
 </td>
 {counter name="fieldsUsed"}
 
-<td valign="top" width='37.5%' >
+<td valign="top" width='37.5%' colspan='3'>
 {counter name="panelFieldCount"}
 
 {if !isset($config.enable_autocomplete) || $config.enable_autocomplete==false}
@@ -430,15 +430,6 @@ SyncToHidden(e.result.raw.key);
 </script> 
 {/literal}
 {/if}
-<td valign="top" id='patent_number_label' width='12.5%' scope="col">
-{capture name="label" assign="label"}{sugar_translate label='LBL_PATENT_NUMBER' module='Cases'}{/capture}
-<label for="patent_number">{$label|strip_semicolon}:</label>
-</td>
-{counter name="fieldsUsed"}
-
-<td valign="top" width='37.5%' >
-{counter name="panelFieldCount"}
-<input accesskey=""  tabindex="0"  type = "text" name = "patent_number" id = "patent_number" value = "{$PATENT_NUMBER_VALUE}" style="{$PATENT_NUMBER_HIDE}" />
 </tr>
 {/capture}
 {if $fieldsUsed > 0 }
@@ -473,27 +464,7 @@ value='{$value}' title=''      >
 
 <td valign="top" width='37.5%' >
 {counter name="panelFieldCount"}
-
-<span class="dateTime">
-{assign var=date_value value=$fields.qb_date.value }
-<input class="date_input" autocomplete="off" type="text" name="{$fields.qb_date.name}" id="{$fields.qb_date.name}" value="{$date_value}" title=''  tabindex='0'    size="11" maxlength="10" >
-{capture assign="other_attributes"}alt="{$APP.LBL_ENTER_DATE}" style="position:relative; top:6px" border="0" id="{$fields.qb_date.name}_trigger"{/capture}
-{sugar_getimage name="jscalendar" ext=".gif" other_attributes="$other_attributes"}
-</span>
-<script type="text/javascript">
-Calendar.setup ({ldelim}
-inputField : "{$fields.qb_date.name}",
-ifFormat : "{$CALENDAR_FORMAT}",
-daFormat : "{$CALENDAR_FORMAT}",
-button : "{$fields.qb_date.name}_trigger",
-singleClick : true,
-dateStr : "{$date_value}",
-startWeekday: {$CALENDAR_FDOW|default:'0'},
-step : 1,
-weekNumbers:false
-{rdelim}
-);
-</script>
+{$QB_DATE}
 </tr>
 {/capture}
 {if $fieldsUsed > 0 }
@@ -561,27 +532,7 @@ tabindex='0'
 
 <td valign="top" width='37.5%' >
 {counter name="panelFieldCount"}
-
-<span class="dateTime">
-{assign var=date_value value=$fields.credit_date.value }
-<input class="date_input" autocomplete="off" type="text" name="{$fields.credit_date.name}" id="{$fields.credit_date.name}" value="{$date_value}" title=''  tabindex='0'    size="11" maxlength="10" >
-{capture assign="other_attributes"}alt="{$APP.LBL_ENTER_DATE}" style="position:relative; top:6px" border="0" id="{$fields.credit_date.name}_trigger"{/capture}
-{sugar_getimage name="jscalendar" ext=".gif" other_attributes="$other_attributes"}
-</span>
-<script type="text/javascript">
-Calendar.setup ({ldelim}
-inputField : "{$fields.credit_date.name}",
-ifFormat : "{$CALENDAR_FORMAT}",
-daFormat : "{$CALENDAR_FORMAT}",
-button : "{$fields.credit_date.name}_trigger",
-singleClick : true,
-dateStr : "{$date_value}",
-startWeekday: {$CALENDAR_FDOW|default:'0'},
-step : 1,
-weekNumbers:false
-{rdelim}
-);
-</script>
+{$CREDIT_DATE}
 </tr>
 {/capture}
 {if $fieldsUsed > 0 }
@@ -624,7 +575,7 @@ title='' tabindex="0"
 
 <td valign="top" width='37.5%' colspan='3'>
 {counter name="panelFieldCount"}
-{$CREDIT_ALLOCATION}<input accesskey=""  tabindex="0"  type = "hidden" name = "cnt_value" id = "cnt_value" value = "{$CNT_VALUE}" />
+{$CREDIT_ALLOCATION}<input accesskey=""  tabindex="0"  type = "hidden" name = "cnt_value" id = "cnt_value" value = "{$CNT_VALUE}" /> <input accesskey=""  tabindex="0"  type="hidden" name="credit_dt_hidden" id="credit_dt_hidden" value={$CREDIT_DATE_HID} />
 </tr>
 {/capture}
 {if $fieldsUsed > 0 }
@@ -678,9 +629,18 @@ title='' tabindex="0"
 </td>
 {counter name="fieldsUsed"}
 
-<td valign="top" width='37.5%' colspan='3'>
+<td valign="top" width='37.5%' >
 {counter name="panelFieldCount"}
 <input accesskey=""  tabindex="0"  type = "checkbox" id = "freceipt" name = "freceipt"  onclick = changeFrecipt() {$F_RECEIPT} value = "{$FRECIPT_VALUE}" />
+<td valign="top" id='patent_number_label' width='12.5%' scope="col">
+{capture name="label" assign="label"}{sugar_translate label='LBL_PATENT_NUMBER' module='Cases'}{/capture}
+<label for="patent_number">{$label|strip_semicolon}:</label>
+</td>
+{counter name="fieldsUsed"}
+
+<td valign="top" width='37.5%' >
+{counter name="panelFieldCount"}
+<input accesskey=""  tabindex="0"  type = "text" name = "patent_number" id = "patent_number" value = "{$PATENT_NUMBER_VALUE}" style="{$PATENT_NUMBER_HIDE}" />
 </tr>
 {/capture}
 {if $fieldsUsed > 0 }
@@ -959,6 +919,8 @@ addToValidate('EditView', 'case_origin', 'varchar', false,'{/literal}{sugar_tran
 addToValidate('EditView', 'amount_paid', 'decimal', false,'{/literal}{sugar_translate label='LBL_AMOUNT_PAID' module='Cases' for_js=true}{literal}' );
 addToValidate('EditView', 'qb_date', 'date', false,'{/literal}{sugar_translate label='LBL_QB_DATE' module='Cases' for_js=true}{literal}' );
 addToValidate('EditView', 'date_case_status_modified_date', 'date', false,'LBL_DATE_CASE_STATUS_MODIFIED' );
+addToValidate('EditView', 'case_end_user_id', 'char', false,'{/literal}{sugar_translate label='LBL_CASE_END_USER_ID' module='Cases' for_js=true}{literal}' );
+addToValidate('EditView', 'case_end_user_name', 'relate', false,'{/literal}{sugar_translate label='LBL_CASE_END_USER_NAME' module='Cases' for_js=true}{literal}' );
 addToValidate('EditView', 'trade_trademark_cases_name', 'relate', false,'{/literal}{sugar_translate label='LBL_TRADE_TRADEMARK_CASES_FROM_TRADE_TRADEMARK_TITLE' module='Cases' for_js=true}{literal}' );
 addToValidateBinaryDependency('EditView', 'assigned_user_name', 'alpha', false,'{/literal}{sugar_translate label='ERR_SQS_NO_MATCH_FIELD' module='Cases' for_js=true}{literal}: {/literal}{sugar_translate label='LBL_ASSIGNED_TO' module='Cases' for_js=true}{literal}', 'assigned_user_id' );
 addToValidateBinaryDependency('EditView', 'client_consultant_name', 'alpha', false,'{/literal}{sugar_translate label='ERR_SQS_NO_MATCH_FIELD' module='Cases' for_js=true}{literal}: {/literal}{sugar_translate label='LBL_CLIENT_CONSULTANT_NAME' module='Cases' for_js=true}{literal}', 'client_consultant_id' );

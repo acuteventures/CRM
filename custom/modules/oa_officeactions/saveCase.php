@@ -17,7 +17,7 @@ class saveCase {
 			
 			if($count >0){
 				//echo EDIT;
-				$update = "UPDATE `c_s_d_case_subcase_dashlet` SET `name`='".$bean->name."', `modified_user_id`='".$bean->modified_user_id."', `created_by`='".$bean->created_by."', `assigned_user_id`='".$bean->assigned_user_id."', `sub_case_type_id`='".$bean->subcase_name."', `status`='".$bean->subcase_status_id."', `invention_id`='".$bean->oa_officeactions_cases->beans[$case_id]->fetched_row['invention_id']."', `account_id`='".$bean->oa_officeactions_cases->beans[$case_id]->fetched_row['account_id']."', `client_consultant_id`='".$bean->oa_officeactions_cases->beans[$case_id]->fetched_row['client_consultant_id']."', `due_date`='".$bean->duedate."', `parent_subcase_id`='".$bean->id."' WHERE case_subcase_id='".$bean->id."'";
+				$update = "UPDATE `c_s_d_case_subcase_dashlet` SET `name`='".$bean->name."', `modified_user_id`='".$bean->modified_user_id."', `created_by`='".$bean->created_by."', `assigned_user_id`='".$bean->assigned_user_id."', `sub_case_type_id`='".$bean->subcase_name."', `status`='".$bean->subcase_status_id."', `invention_id`='".$bean->oa_officeactions_cases->beans[$case_id]->fetched_row['invention_id']."', `account_id`='".$bean->oa_officeactions_cases->beans[$case_id]->fetched_row['account_id']."', `client_consultant_id`='".$bean->oa_officeactions_cases->beans[$case_id]->fetched_row['client_consultant_id']."', `due_date`='".$bean->duedate."', `freceipt`='".$bean->freceipt."', `application_number`='".$bean->application_number."', `parent_subcase_id`='".$bean->id."' WHERE case_subcase_id='".$bean->id."'";
 				$update_query = $db->query($update);
 			}else{
 				//echo ADD;
@@ -38,6 +38,8 @@ class saveCase {
 				$focus->client_consultant_id	= $bean->oa_officeactions_cases->beans[$case_id]->fetched_row['client_consultant_id'];
 				$focus->case_subcase_status_age	= $bean->subcase_status_age;
 				$focus->due_date				= $bean->duedate;
+				$focus->freceipt		        = $bean->freceipt;  //* preethi on 29-08-2012
+				$focus->application_number		= $bean->application_number;  //* preethi on 29-08-2012
 				$focus->parent_subcase_id		= $bean->id;				
 				$focus->save();
 			}

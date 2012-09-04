@@ -110,4 +110,9 @@ $mod_strings = array (
   // * preethi on 24-08-2012
   'LBL_PRIORITYDATE' => 'Priority Date',
   // * End
+  //* preethi on 29-08-2012
+  'LBL_PATENT_NUMBER' => 'Patent Number',
+  'LBL_FILING_RECEIPT' => 'Filing Recipt',
+  'LBL_APPLICATION_NUMBER' => 'Application Number',
+  // * End
 );

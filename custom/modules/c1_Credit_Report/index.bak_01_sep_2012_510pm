@@ -1,0 +1,206 @@
+<?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+require_once('modules/Users/User.php');
+global  $db; 
+global $current_user;
+
+$email=get_consultant_name();
+?>
+
+<table width="100%" border="0">
+  <tr>
+    <td width="9%">&nbsp;</td>
+    <td width="8%">&nbsp;</td>
+    <td width="5%">&nbsp;</td>
+    <td width="3%">&nbsp;</td>
+    <td width="7%">&nbsp;</td>
+    <td width="13%">&nbsp;</td>
+    <td width="5%">&nbsp;</td>
+    <td width="9%">&nbsp;</td>
+    <td width="4%">&nbsp;</td>
+    <td width="9%">&nbsp;</td>
+    <td width="28%">&nbsp;</td>
+  </tr>
+  <form action="" method="post">
+    <tr>
+      <td align="right"><strong>Case status</strong></td>
+      <td><select  name="case_status" id="case_status" onchange="case_statusChange(this.value);">
+          <option value="d7b78682-00e9-943d-ecc6-4ed9c63407f5==10a723b0-83d2-f248-64de-4ed9c7afcc4b" selected="selected">Completed & Abandoned</option>
+          <option value="a1176975-6d56-3ed7-61d2-4ed9c7b15d3d">In Progress</option>
+        </select>
+      </td>
+      <td align="right"><strong>Employee</strong></td>
+      <td><select name="user_id" id="user_id">
+          <?php
+	  foreach ($email as $k => $v) {
+	echo "<option value=".$k.">".$v."</option>";
+}
+	  ?>
+        </select></td>
+      <td align="right"><strong>Credit Date</strong></td>
+      <td align="left"><label>
+        <select name="credit_date_dom" id="credit_date_dom" onchange="disableFromToDate(this.value);">
+          <option value="this_month" selected="selected">This Month</option>
+          <option value="last_month">Last Month</option>
+          <option value="custom">Custom</option>
+          <option value="none">None</option>
+        </select>
+        </label></td>
+      <td align="right"><strong id="from_lebel_id" style="display: none;">From Date </strong></td>
+      <td valign="top"><slot>
+        <span class="dateTime" id="date_from_span" style="display: none;">
+        <input class="date_input" autocomplete="off" type="text" name="date_from" id="date_from" value="" title=''  tabindex='0'  size="11" maxlength="10">
+        <img src="themes/Sugar5/images/jscalendar.gif?v=dpgp1D33FQ1Y3lttP-WW0g"    alt="Enter Date" style="position:relative; top:6px" border="0" id="date_from_trigger"/> </span>
+        <script type="text/javascript">
+Calendar.setup ({
+inputField : "date_from",
+ifFormat : "%m/%d/%Y %I:%M%p",
+daFormat : "%m/%d/%Y %I:%M%p",
+button : "date_from_trigger",
+singleClick : true,
+dateStr : "",
+startWeekday: 0,
+step : 1,
+weekNumbers:false
+}
+);
+</script></td>
+      <td align="right"><strong id="to_lebel_id" style="display: none;">To Date </strong></td>
+      <td valign="top"><span class="dateTime" id="date_to_span" style="display: none;">
+        <input class="date_input" autocomplete="off" type="text" name="date_to" id="date_to" value="" title=''  tabindex='0'    size="11" maxlength="10" />
+        <img src="themes/Sugar5/images/jscalendar.gif?v=dpgp1D33FQ1Y3lttP-WW0g"    alt="Enter Date" style="position:relative; top:6px" border="0" id="date_to_trigger" /></span></td>
+      <td><script type="text/javascript">
+Calendar.setup ({
+inputField : "date_to",
+ifFormat : "%m/%d/%Y %I:%M%p",
+daFormat : "%m/%d/%Y %I:%M%p",
+button : "date_to_trigger",
+singleClick : true,
+dateStr : "",
+startWeekday: 0,
+step : 1,
+weekNumbers:false
+}
+);
+</script></td>
+    </tr>
+    <tr>
+      <td height="10" colspan="11"></td>
+    </tr>
+    <tr>
+      <td height="25">&nbsp;</td>
+      <td height="25"><input type='button' onclick='ajaxFunction()' value='Search' />
+        <!--<input name="submit" type="submit" class="searchBtn" id="searchBtn" value="Search" />--></td>
+      <td height="25">&nbsp;</td>
+      <td height="25">&nbsp;</td>
+      <td height="25">&nbsp;</td>
+      <td height="25">&nbsp;</td>
+      <td height="25">&nbsp;</td>
+      <td height="25">&nbsp;</td>
+      <td height="25">&nbsp;</td>
+      <td height="25">&nbsp;</td>
+      <td height="25">&nbsp;</td>
+    </tr>
+  </form>
+  <tr>
+    <td colspan="11" height="25">&nbsp;</td>
+  </tr>
+    <tr>
+    <td colspan="11" height="35"><div id="searchresults" style="font-size:16px; font-family:Arial, Helvetica, sans-serif; font-style:normal; font-weight:bold;">Search results :</div></td>
+  </tr>
+  <tr>
+    <td colspan="11" style="border:#999999 solid 1px;"><div id="myDiv">
+        
+        <?php 
+				$case_status_defalut=$_REQUEST['case_status'];
+				if(empty($case_status_defalut)){
+		?>
+        <div id="sub_cont">
+          <?php include_once('defalut_search.php');?>
+        </div>
+        <?php }else{
+		?>
+        <div id="sub_cont"> </div>
+        <?php }?>
+      </div></td>
+  </tr>
+</table>
+<script language="javascript" type="text/javascript">
+function ajaxFunction(){
+	var ajaxRequest;  // The variable that makes Ajax possible!
+	
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	} catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+			}
+		}
+	}
+	// Create a function that will receive data sent from the server
+	ajaxRequest.onreadystatechange = function(){
+		if(ajaxRequest.readyState == 4){
+			document.getElementById('sub_cont').innerHTML=ajaxRequest.responseText; 
+			//document.myForm.time.value = ajaxRequest.responseText;
+		}
+	}
+	
+	var case_status = document.getElementById('case_status').value;
+	var credit_date_dom = document.getElementById('credit_date_dom').value;
+	var date_from = document.getElementById('date_from').value;
+	var date_to = document.getElementById('date_to').value;
+	var user_id = document.getElementById('user_id').value;
+	var queryString = "?case_status=" + case_status + "&user_id=" + user_id + "&date_from=" + date_from + "&date_to=" + date_to  + "&credit_date_dom="+ credit_date_dom;
+	ajaxRequest.open("GET", "search.php" + queryString, true);
+	var ajaxDisplay = document.getElementById('sub_cont');
+	ajaxDisplay.innerHTML = "<div align='center'><img src='ajax-loader.gif' /></div>";
+	ajaxRequest.send(null); 
+}
+
+
+function disableFromToDate(credit_date_dom){
+var credit_date_dom = credit_date_dom;
+if(credit_date_dom!='custom'){
+document.getElementById('date_from_span').style.display = 'none';
+document.getElementById('date_to_span').style.display = 'none';
+document.getElementById('from_lebel_id').style.display = 'none';
+document.getElementById('to_lebel_id').style.display = 'none';
+}else{
+document.getElementById('date_from_span').style.display = 'block';
+document.getElementById('date_to_span').style.display = 'block';
+document.getElementById('from_lebel_id').style.display = 'block';
+document.getElementById('to_lebel_id').style.display = 'block';
+}
+}
+
+function case_statusChange(case_statusValue)
+{
+ var case_statusValue = case_statusValue;
+ 
+ if(case_statusValue=='a1176975-6d56-3ed7-61d2-4ed9c7b15d3d'){
+ var credit_date_dom = document.getElementById("credit_date_dom");
+  		option = credit_date_dom.options[3];
+        if (option.value == 'none') {
+            option.selected = true;
+			document.getElementById('credit_date_dom').disabled = true;
+			}
+ }else{
+  var credit_date_dom = document.getElementById("credit_date_dom");
+  		option = credit_date_dom.options[0];
+        if (option.value == 'this_month') {
+            option.selected = true;
+			document.getElementById('credit_date_dom').disabled = false;
+			}
+ }
+}
+</script>

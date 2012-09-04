@@ -285,6 +285,8 @@ class AccountsViewDetail extends ViewDetail {
         for ($i = 0; $i < count($invname); $i++) {
             // $html .= '<tr><td width="10%" colspan="0" STYLE="color :#FFFFFF;background-color :#C0CCCC"><p align="left"><b>Invention Name :'.$invname[$i].'</p></b></td></tr>';  
             $html .= '<tr><td width="10%" colspan="0" STYLE="color :#FFFFFF;background-color :#C0CCCC"><p align="left"><b>Invention  :</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+//delete button commented
+//$html .= "<img src='delete.png' title='Delete' id='btnDelete' onMouseOver='this.style.cursor=\"pointer\";' onclick='return deleteRecord(\"".$iiid[$i]."\",\"Invention\",\"".$this->bean->id."\");' />';
             $html .= "<a href='index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DInv_Inventions%26action%3DDetailView%26record%3D" . $iiid[$i] . "' title='Click To See The Details Of Invantions'><b>" . $invname[$i] . '</b></a></p></td></tr>';
         }
 
@@ -300,6 +302,8 @@ class AccountsViewDetail extends ViewDetail {
             $inventionId = $rowInvention['inventionId'];
 
             $html .= '<tr><td width="10%" colspan="0" STYLE="color :#FFFFFF;background-color :#C0CCCC"><p align="left"><b>Invention  :</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            //delete button commented
+//            $html .= "<img src='delete.png' title='Delete' id='btnDelete' onMouseOver='this.style.cursor=\"pointer\";' onclick='return deleteRecord(\"".$inventionId."\",\"Invention\",\"".$this->bean->id."\");' />';
             $html .= "<a href='index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DInv_Inventions%26action%3DDetailView%26record%3D" . $inventionId . "' title='Click To See The Details Of Invantions'><b>" . $rowInvention['inventionTitle'] . '</b></a></p></td></tr>';
             $html .= '<tr><th width="13%" colspan="3" >Case Docket Number</th><th width="10%" colspan="3">Case Status</th><th width="10%" colspan="3">Case Type</th>';
             $html .= '<th width="10%" colspan="3">Due Date</th><th width="10%" colspan="3">Priority Date</th><th width="10%" colspan="3">Completion Date</th><th width="10%" colspan="3">Filing Date</th><th width="10%" colspan="3">Application #</th>';
@@ -346,6 +350,8 @@ class AccountsViewDetail extends ViewDetail {
                 $dueDate = ($rowDisplayRecord['dueDate'] == "0000-00-00" || $rowDisplayRecord['dueDate'] == "") ? '' : date("m/d/Y", strtotime($rowDisplayRecord['dueDate']));
                 $html .= '<tr>';
                 $html .= '<td width="10%" colspan="3">';
+                //Delete button commented
+                //$html .= '<img src="delete.png" title="Delete" id="btnDelete" onclick="return deleteRecord(\''.$caseId.'\',\'Case\',\''.$this->bean->id.'\');"/>';
                 if (($caseStatus == 'Abandoned') || ($caseStatus == 'Completed')) {
                     $html .= "<a style='color:#000000' href='index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DCases%26action%3DDetailView%26record%3D" . $caseId . "'><p><dd>";
                     $html .= $caseDocketNumber . "</a></p></dd>";
@@ -532,7 +538,10 @@ class AccountsViewDetail extends ViewDetail {
         $html .='<table width="100%" border="0" cellpadding="0" cellspacing="{$gridline}">';
         for ($i = 0; $i < count($tdnname); $i++) {
             // $html .= '<tr><td width="10%" colspan="0" STYLE="color :#FFFFFF;background-color :#C0CCCC"><p align="left"><b>Invention Name :'.$invname[$i].'</p></b></td></tr>';  
+            
             $html .= '<tr><td width="10%" colspan="0" STYLE="color :#FFFFFF;background-color :#C0CCCC"><p align="left"><b>Trademark :</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            //Delete button commented
+            //$html .= "<img src='delete.png' title='Delete' id='btnDelete' onclick='return deleteRecord(\"".$trmid[$i]."\",\"Trademark\",\"".$this->bean->id."\");'/>";
             $html .= "<a href='index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3Dtrade_trademark%26action%3DDetailView%26record%3D" . $trmid[$i] . "' title='Click To See The Details Of Trademark'><b>" . $tdnname[$i] . '</b></a></p></td></tr>';
         }
 
@@ -543,6 +552,8 @@ class AccountsViewDetail extends ViewDetail {
         while ($rowTrademark = $db->fetchByAssoc($resultTrademark)) {
             $trademarkId = $rowTrademark['trademarkId'];
             $html .= '<tr><td width="10%" colspan="0" STYLE="color :#FFFFFF;background-color :#C0CCCC"><p align="left"><b>Trademark :</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            //Delete button commented
+            //$html .= "<img src='delete.png' title='Delete' id='btnDelete' onclick='return deleteRecord(\"".$trademarkId."\",\"Trademark\",\"".$this->bean->id."\");' />";
             $html .= "<a href='index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3Dtrade_trademark%26action%3DDetailView%26record%3D" . $trademarkId . "' title='Click To See The Details Of Trademark'><b>" . $rowTrademark['trademarkTitle'] . '</b></a></p></td></tr>';
             $html .= '<tr><th width="10%" colspan="3" >Case Docket Number</th><th width="10%" colspan="3">Case Type</th><th width="10%" colspan="3">Case Status</th>';
             $html .= '<th width="10%" colspan="3">Application Number</th><th width="10%" colspan="3">Filing Date</th><th width="10%" colspan="3">Due Date</th><th width="10%" colspan="3">Completion Date</th>';
@@ -586,6 +597,8 @@ class AccountsViewDetail extends ViewDetail {
                 $completion_date = ($rowDisplayRecord['completionDate'] == "0000-00-00" || $rowDisplayRecord['completionDate'] == "") ? '' : date("m/d/Y", strtotime($rowDisplayRecord['completionDate']));
                 $html .= '<tr>';
                 $html .= '<td width="10%" colspan="3">';
+                //Delete button commented
+                //$html .= '<img src="delete.png" title="Delete" id="btnDelete" onclick="return deleteRecord(\''.$caseId.'\',\'Case\',\''.$this->bean->id.'\');" />';
                 if (($caseStatus == 'Abandoned') || ($caseStatus == 'Completed')) {
                     $html .= "<a style='color:#000000' href='index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DCases%26action%3DDetailView%26record%3D" . $caseId . "'>";
                     $html .= $caseDocketNumber . "</a>";
@@ -759,6 +772,8 @@ class AccountsViewDetail extends ViewDetail {
 
             $html .= '<tr>';
             $html .= '<td width="10%" colspan="3">';
+            //Delete button commented
+            $html .= '<img src="delete.png" title="Delete" id="btnDelete" onclick="return deleteRecord(\''.$caseId.'\',\'Case\',\''.$this->bean->id.'\');"/>';
             if (($caseStatus == 'Abandoned') || ($caseStatus == 'Completed')) {
                 $html .= "<a style='color:#000000' href='index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DCases%26action%3DDetailView%26record%3D" . $caseId . "'>";
                 $html .= $caseDocketNumber . "</a>";

@@ -638,6 +638,43 @@
       'reportable' => 0,
       'display_default' => '',
     ),
+    'patent_number' => 
+    array (
+      'name' => 'patent_number',
+      'vname' => 'LBL_PATENT_NUMBER',
+      'type' => 'varchar',
+      'len' => 255,
+      'required' => false,
+      'auto_increment' => false,
+      'unified_search' => true,
+      'comment' => '',
+      'duplicate_merge' => 'disabled',
+      'disable_num_format' => true,
+    ),
+    'freceipt' => 
+    array (
+      'name' => 'freceipt',
+      'vname' => 'LBL_FILING_RECEIPT',
+      'type' => 'int',
+      'required' => false,
+      'unified_search' => true,
+      'comment' => '',
+      'duplicate_merge' => 'disabled',
+      'disable_num_format' => true,
+    ),
+    'application_number' => 
+    array (
+      'name' => 'application_number',
+      'vname' => 'LBL_APPLICATION_NUMBER',
+      'type' => 'varchar',
+      'len' => 255,
+      'required' => false,
+      'auto_increment' => false,
+      'unified_search' => true,
+      'comment' => '',
+      'duplicate_merge' => 'disabled',
+      'disable_num_format' => true,
+    ),
   ),
   'relationships' => 
   array (

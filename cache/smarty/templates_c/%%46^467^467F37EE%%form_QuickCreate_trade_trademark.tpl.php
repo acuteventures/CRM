@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 15:28:23
+<?php /* Smarty version 2.6.11, created on 2012-09-04 18:33:45
          compiled from cache/modules/trade_trademark/form_QuickCreate_trade_trademark.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/trade_trademark/form_QuickCreate_trade_trademark.tpl', 36, false),array('function', 'counter', 'cache/modules/trade_trademark/form_QuickCreate_trade_trademark.tpl', 42, false),array('function', 'sugar_translate', 'cache/modules/trade_trademark/form_QuickCreate_trade_trademark.tpl', 48, false),array('function', 'sugar_getimagepath', 'cache/modules/trade_trademark/form_QuickCreate_trade_trademark.tpl', 91, false),array('modifier', 'default', 'cache/modules/trade_trademark/form_QuickCreate_trade_trademark.tpl', 43, false),array('modifier', 'strip_semicolon', 'cache/modules/trade_trademark/form_QuickCreate_trade_trademark.tpl', 49, false),)), $this); ?>

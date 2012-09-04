@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:17:15
+<?php /* Smarty version 2.6.11, created on 2012-09-04 18:40:05
          compiled from custom/modules/oa_officeactions/tpls/DetailViewFooter.tpl */ ?>
 {*
 /*********************************************************************************

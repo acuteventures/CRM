@@ -464,6 +464,15 @@ SyncToHidden(e.result.raw.key);
 {counter name="fieldsUsed" start=0 print=false assign="fieldsUsed"}
 {capture name="tr" assign="tableRow"}
 <tr>
+<td valign="top" id='credit_date_label' width='12.5%' scope="col">
+{capture name="label" assign="label"}{sugar_translate label='LBL_CREDIT_DATE' module='oa_officeactions'}{/capture}
+<label for="credit_date">{$label|strip_semicolon}:</label>
+</td>
+{counter name="fieldsUsed"}
+
+<td valign="top" width='37.5%' >
+{counter name="panelFieldCount"}
+{$CREDIT_DATE}
 <td valign="top" id='_label' width='12.5%' scope="col">
 &nbsp;
 </td>
@@ -471,13 +480,7 @@ SyncToHidden(e.result.raw.key);
 
 <td valign="top" width='37.5%' >
 {counter name="panelFieldCount"}
-<input accesskey=""  tabindex="0"  type="hidden" name="subcase_number" id="subcase_number" readonly value="{$fields.subcase_number.value}">
-<td valign="top" id='_label' width='12.5%' scope="col">
-&nbsp;
-</td>
-{counter name="fieldsUsed"}
-
-<td valign="top" width='37.5%' >
+<input accesskey=""  tabindex="0"  type="hidden" name="credit_dt_hidden" id="credit_dt_hidden" value={$CREDIT_DATE_HID} />
 </tr>
 {/capture}
 {if $fieldsUsed > 0 }
@@ -515,27 +518,7 @@ tabindex='0'
 
 <td valign="top" width='37.5%' >
 {counter name="panelFieldCount"}
-
-<span class="dateTime">
-{assign var=date_value value=$fields.qb_date.value }
-<input class="date_input" autocomplete="off" type="text" name="{$fields.qb_date.name}" id="{$fields.qb_date.name}" value="{$date_value}" title=''  tabindex='0'    size="11" maxlength="10" >
-{capture assign="other_attributes"}alt="{$APP.LBL_ENTER_DATE}" style="position:relative; top:6px" border="0" id="{$fields.qb_date.name}_trigger"{/capture}
-{sugar_getimage name="jscalendar" ext=".gif" other_attributes="$other_attributes"}
-</span>
-<script type="text/javascript">
-Calendar.setup ({ldelim}
-inputField : "{$fields.qb_date.name}",
-ifFormat : "{$CALENDAR_FORMAT}",
-daFormat : "{$CALENDAR_FORMAT}",
-button : "{$fields.qb_date.name}_trigger",
-singleClick : true,
-dateStr : "{$date_value}",
-startWeekday: {$CALENDAR_FDOW|default:'0'},
-step : 1,
-weekNumbers:false
-{rdelim}
-);
-</script>
+{$QB_DATE}
 </tr>
 {/capture}
 {if $fieldsUsed > 0 }
@@ -544,35 +527,20 @@ weekNumbers:false
 {counter name="fieldsUsed" start=0 print=false assign="fieldsUsed"}
 {capture name="tr" assign="tableRow"}
 <tr>
-<td valign="top" id='credit_date_label' width='12.5%' scope="col">
-{capture name="label" assign="label"}{sugar_translate label='LBL_CREDIT_DATE' module='oa_officeactions'}{/capture}
-<label for="credit_date">{$label|strip_semicolon}:</label>
+<td valign="top" id='_label' width='12.5%' scope="col">
+&nbsp;
 </td>
 {counter name="fieldsUsed"}
 
-<td valign="top" width='37.5%' colspan='3'>
+<td valign="top" width='37.5%' >
 {counter name="panelFieldCount"}
+<input accesskey=""  tabindex="0"  type="hidden" name="subcase_number" id="subcase_number" readonly value="{$fields.subcase_number.value}">
+<td valign="top" id='_label' width='12.5%' scope="col">
+&nbsp;
+</td>
+{counter name="fieldsUsed"}
 
-<span class="dateTime">
-{assign var=date_value value=$fields.credit_date.value }
-<input class="date_input" autocomplete="off" type="text" name="{$fields.credit_date.name}" id="{$fields.credit_date.name}" value="{$date_value}" title=''  tabindex='0'    size="11" maxlength="10" >
-{capture assign="other_attributes"}alt="{$APP.LBL_ENTER_DATE}" style="position:relative; top:6px" border="0" id="{$fields.credit_date.name}_trigger"{/capture}
-{sugar_getimage name="jscalendar" ext=".gif" other_attributes="$other_attributes"}
-</span>
-<script type="text/javascript">
-Calendar.setup ({ldelim}
-inputField : "{$fields.credit_date.name}",
-ifFormat : "{$CALENDAR_FORMAT}",
-daFormat : "{$CALENDAR_FORMAT}",
-button : "{$fields.credit_date.name}_trigger",
-singleClick : true,
-dateStr : "{$date_value}",
-startWeekday: {$CALENDAR_FDOW|default:'0'},
-step : 1,
-weekNumbers:false
-{rdelim}
-);
-</script>
+<td valign="top" width='37.5%' >
 </tr>
 {/capture}
 {if $fieldsUsed > 0 }
@@ -708,6 +676,8 @@ addToValidate('EditView', 'oa_officeactions_cases_name', 'relate', true,'{/liter
 addToValidate('EditView', 'amount_paid', 'decimal', false,'{/literal}{sugar_translate label='LBL_AMOUNT_PAID' module='oa_officeactions' for_js=true}{literal}' );
 addToValidate('EditView', 'qb_date', 'date', false,'{/literal}{sugar_translate label='LBL_QB_DATE' module='oa_officeactions' for_js=true}{literal}' );
 addToValidate('EditView', 'credit_date', 'date', false,'{/literal}{sugar_translate label='LBL_CREDIT_DATE' module='oa_officeactions' for_js=true}{literal}' );
+addToValidate('EditView', 'case_end_user_id', 'char', false,'{/literal}{sugar_translate label='LBL_CASE_END_USER_ID' module='oa_officeactions' for_js=true}{literal}' );
+addToValidate('EditView', 'case_end_user_name', 'relate', false,'{/literal}{sugar_translate label='LBL_CASE_END_USER_NAME' module='oa_officeactions' for_js=true}{literal}' );
 addToValidate('EditView', 'subcaseoverride', 'bool', false,'{/literal}{sugar_translate label='LBL_SUBCASE_OVERRIDE' module='oa_officeactions' for_js=true}{literal}' );
 addToValidateBinaryDependency('EditView', 'assigned_user_name', 'alpha', false,'{/literal}{sugar_translate label='ERR_SQS_NO_MATCH_FIELD' module='oa_officeactions' for_js=true}{literal}: {/literal}{sugar_translate label='LBL_ASSIGNED_TO' module='oa_officeactions' for_js=true}{literal}', 'assigned_user_id' );
 addToValidateBinaryDependency('EditView', 'oa_officeactions_cases_name', 'alpha', true,'{/literal}{sugar_translate label='ERR_SQS_NO_MATCH_FIELD' module='oa_officeactions' for_js=true}{literal}: {/literal}{sugar_translate label='LBL_OA_OFFICEACTIONS_CASES_FROM_CASES_TITLE' module='oa_officeactions' for_js=true}{literal}', 'oa_officeactions_casescases_ida' );

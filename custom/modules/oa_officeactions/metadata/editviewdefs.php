@@ -112,8 +112,31 @@ SUGAR.util.doWhen(
 				  'name' => 'visible_to_client',
 			  ),
 		),
-
-		6 =>
+                6 =>
+		array(
+			  0 =>
+			  array(		  
+				  'name' => 'credit_date',
+                              'customCode' => '{$CREDIT_DATE}',
+			  ),
+			  1 =>		  
+			  array(			  
+				  'customCode' => '<input type="hidden" name="credit_dt_hidden" id="credit_dt_hidden" value={$CREDIT_DATE_HID} />'
+			  ),
+		),
+                7 =>
+		array(
+			  0 =>
+			  array(		  
+				  'name' => 'amount_paid',
+			  ),
+			  1 =>		  
+			  array(			  
+				'name' => 'qb_date',
+                                'customCode' => '{$QB_DATE}',
+			  ),
+		),
+		8 =>
 		array(
 		  array(		  
 			  //'name' => 'subcase_number',
@@ -127,24 +150,14 @@ SUGAR.util.doWhen(
 		),
 		//end
 		//by anuradha 23/8/2012
-		7 =>
-		array(
-			  0 =>
-			  array(		  
-				  'name' => 'amount_paid',
-			  ),
-			  1 =>		  
-			  array(			  
-				  'name' => 'qb_date',
-			  ),
-		),
-		8 =>
-		array(
-			0 =>
-			array(
-				'name' => 'credit_date',
-			),
-		),
+		
+//		9 =>
+//		array(
+//			0 =>
+//			array(
+//				'name' => 'credit_date',
+//			),
+//		),
 
 		//end		
       ),
@@ -169,3 +182,50 @@ SUGAR.util.doWhen(
   ),
 );
 ?>
+<script type="text/javascript">
+    //credit_date
+    //Rajesh G - 31/08/2012
+    Calendar.setup ({
+            inputField : "credit_date",
+            daFormat : "%m/%d/%Y %I:%M%P",
+            button : "created_trigger_cd_af",
+            singleClick : true,
+            dateStr : "",
+            step : 1,
+            weekNumbers:false
+        }
+    );
+    
+    //qb_date
+    //Rajesh G - 01/09/2012
+    Calendar.setup ({
+            inputField : "qb_date",
+            daFormat : "%m/%d/%Y %I:%M%P",
+            button : "created_trigger_qb_dt",
+            singleClick : true,
+            dateStr : "",
+            step : 1,
+            weekNumbers:false
+            }
+    );
+        
+    function populateCurrDate(){
+
+            var e = document.getElementById("subcase_status_id");
+            var csStatus = e.options[e.selectedIndex].text;
+            var creditDt = document.getElementById('credit_dt_hidden').value;
+            if(creditDt.length <= 1){
+                if(csStatus == "Completed" || csStatus == "Abandoned"){
+                        var currentDate = new Date();
+                        var day = currentDate.getDate();
+                        var month = currentDate.getMonth()+1; 
+                        var year = currentDate.getFullYear();
+                        document.getElementById('credit_date').value = month+"/"+day+"/"+year;
+                }
+                else{
+                    document.getElementById('credit_date').value = "";
+                }
+            }
+
+    }
+</script>

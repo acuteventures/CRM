@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:26:02
+<?php /* Smarty version 2.6.11, created on 2012-09-04 14:30:48
          compiled from cache/modules/Cases/EditView.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/Cases/EditView.tpl', 36, false),array('function', 'counter', 'cache/modules/Cases/EditView.tpl', 42, false),array('function', 'sugar_translate', 'cache/modules/Cases/EditView.tpl', 46, false),array('function', 'sugar_number_format', 'cache/modules/Cases/EditView.tpl', 149, false),array('function', 'sugar_getimage', 'cache/modules/Cases/EditView.tpl', 166, false),array('function', 'html_options', 'cache/modules/Cases/EditView.tpl', 231, false),array('function', 'sugar_getimagepath', 'cache/modules/Cases/EditView.tpl', 259, false),array('function', 'sugar_getjspath', 'cache/modules/Cases/EditView.tpl', 883, false),array('modifier', 'default', 'cache/modules/Cases/EditView.tpl', 43, false),array('modifier', 'strip_semicolon', 'cache/modules/Cases/EditView.tpl', 54, false),array('modifier', 'lookup', 'cache/modules/Cases/EditView.tpl', 256, false),array('modifier', 'count', 'cache/modules/Cases/EditView.tpl', 336, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/Cases/EditView.tpl', 36, false),array('function', 'counter', 'cache/modules/Cases/EditView.tpl', 42, false),array('function', 'sugar_translate', 'cache/modules/Cases/EditView.tpl', 46, false),array('function', 'sugar_number_format', 'cache/modules/Cases/EditView.tpl', 149, false),array('function', 'sugar_getimage', 'cache/modules/Cases/EditView.tpl', 166, false),array('function', 'html_options', 'cache/modules/Cases/EditView.tpl', 231, false),array('function', 'sugar_getimagepath', 'cache/modules/Cases/EditView.tpl', 259, false),array('function', 'sugar_getjspath', 'cache/modules/Cases/EditView.tpl', 843, false),array('modifier', 'default', 'cache/modules/Cases/EditView.tpl', 43, false),array('modifier', 'strip_semicolon', 'cache/modules/Cases/EditView.tpl', 54, false),array('modifier', 'lookup', 'cache/modules/Cases/EditView.tpl', 256, false),array('modifier', 'count', 'cache/modules/Cases/EditView.tpl', 336, false),)), $this); ?>
 
 
 <div class="clear"></div>
@@ -318,7 +318,7 @@ weekNumbers:false
 <?php echo smarty_function_counter(array('name' => 'fieldsUsed'), $this);?>
 
 
-<td valign="top" width='37.5%' >
+<td valign="top" width='37.5%' colspan='3'>
 <?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
 
@@ -571,20 +571,6 @@ SyncToHidden(e.result.raw.key);
 '; ?>
 
 <?php endif; ?>
-<td valign="top" id='patent_number_label' width='12.5%' scope="col">
-<?php ob_start();  echo smarty_function_sugar_translate(array('label' => 'LBL_PATENT_NUMBER','module' => 'Cases'), $this); $this->_smarty_vars['capture']['label'] = ob_get_contents();  $this->assign('label', ob_get_contents());ob_end_clean(); ?>
-<label for="patent_number"><?php echo ((is_array($_tmp=$this->_tpl_vars['label'])) ? $this->_run_mod_handler('strip_semicolon', true, $_tmp) : smarty_modifier_strip_semicolon($_tmp)); ?>
-:</label>
-</td>
-<?php echo smarty_function_counter(array('name' => 'fieldsUsed'), $this);?>
-
-
-<td valign="top" width='37.5%' >
-<?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
-
-<input accesskey=""  tabindex="0"  type = "text" name = "patent_number" id = "patent_number" value = "<?php echo $this->_tpl_vars['PATENT_NUMBER_VALUE']; ?>
-" style="<?php echo $this->_tpl_vars['PATENT_NUMBER_HIDE']; ?>
-" />
 </tr>
 <?php $this->_smarty_vars['capture']['tr'] = ob_get_contents();  $this->assign('tableRow', ob_get_contents());ob_end_clean();  if ($this->_tpl_vars['fieldsUsed'] > 0):  echo $this->_tpl_vars['tableRow']; ?>
 
@@ -623,38 +609,8 @@ value='<?php echo $this->_tpl_vars['value']; ?>
 <td valign="top" width='37.5%' >
 <?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
+<?php echo $this->_tpl_vars['QB_DATE']; ?>
 
-<span class="dateTime">
-<?php $this->assign('date_value', $this->_tpl_vars['fields']['qb_date']['value']); ?>
-<input class="date_input" autocomplete="off" type="text" name="<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-" id="<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-" value="<?php echo $this->_tpl_vars['date_value']; ?>
-" title=''  tabindex='0'    size="11" maxlength="10" >
-<?php ob_start(); ?>alt="<?php echo $this->_tpl_vars['APP']['LBL_ENTER_DATE']; ?>
-" style="position:relative; top:6px" border="0" id="<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-_trigger"<?php $this->_smarty_vars['capture']['default'] = ob_get_contents();  $this->assign('other_attributes', ob_get_contents());ob_end_clean();  echo smarty_function_sugar_getimage(array('name' => 'jscalendar','ext' => ".gif",'other_attributes' => ($this->_tpl_vars['other_attributes'])), $this);?>
-
-</span>
-<script type="text/javascript">
-Calendar.setup ({
-inputField : "<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-",
-ifFormat : "<?php echo $this->_tpl_vars['CALENDAR_FORMAT']; ?>
-",
-daFormat : "<?php echo $this->_tpl_vars['CALENDAR_FORMAT']; ?>
-",
-button : "<?php echo $this->_tpl_vars['fields']['qb_date']['name']; ?>
-_trigger",
-singleClick : true,
-dateStr : "<?php echo $this->_tpl_vars['date_value']; ?>
-",
-startWeekday: <?php echo ((is_array($_tmp=@$this->_tpl_vars['CALENDAR_FDOW'])) ? $this->_run_mod_handler('default', true, $_tmp, '0') : smarty_modifier_default($_tmp, '0')); ?>
-,
-step : 1,
-weekNumbers:false
-}
-);
-</script>
 </tr>
 <?php $this->_smarty_vars['capture']['tr'] = ob_get_contents();  $this->assign('tableRow', ob_get_contents());ob_end_clean();  if ($this->_tpl_vars['fieldsUsed'] > 0):  echo $this->_tpl_vars['tableRow']; ?>
 
@@ -734,38 +690,8 @@ tabindex='0'
 <td valign="top" width='37.5%' >
 <?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
+<?php echo $this->_tpl_vars['CREDIT_DATE']; ?>
 
-<span class="dateTime">
-<?php $this->assign('date_value', $this->_tpl_vars['fields']['credit_date']['value']); ?>
-<input class="date_input" autocomplete="off" type="text" name="<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-" id="<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-" value="<?php echo $this->_tpl_vars['date_value']; ?>
-" title=''  tabindex='0'    size="11" maxlength="10" >
-<?php ob_start(); ?>alt="<?php echo $this->_tpl_vars['APP']['LBL_ENTER_DATE']; ?>
-" style="position:relative; top:6px" border="0" id="<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-_trigger"<?php $this->_smarty_vars['capture']['default'] = ob_get_contents();  $this->assign('other_attributes', ob_get_contents());ob_end_clean();  echo smarty_function_sugar_getimage(array('name' => 'jscalendar','ext' => ".gif",'other_attributes' => ($this->_tpl_vars['other_attributes'])), $this);?>
-
-</span>
-<script type="text/javascript">
-Calendar.setup ({
-inputField : "<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-",
-ifFormat : "<?php echo $this->_tpl_vars['CALENDAR_FORMAT']; ?>
-",
-daFormat : "<?php echo $this->_tpl_vars['CALENDAR_FORMAT']; ?>
-",
-button : "<?php echo $this->_tpl_vars['fields']['credit_date']['name']; ?>
-_trigger",
-singleClick : true,
-dateStr : "<?php echo $this->_tpl_vars['date_value']; ?>
-",
-startWeekday: <?php echo ((is_array($_tmp=@$this->_tpl_vars['CALENDAR_FDOW'])) ? $this->_run_mod_handler('default', true, $_tmp, '0') : smarty_modifier_default($_tmp, '0')); ?>
-,
-step : 1,
-weekNumbers:false
-}
-);
-</script>
 </tr>
 <?php $this->_smarty_vars['capture']['tr'] = ob_get_contents();  $this->assign('tableRow', ob_get_contents());ob_end_clean();  if ($this->_tpl_vars['fieldsUsed'] > 0):  echo $this->_tpl_vars['tableRow']; ?>
 
@@ -812,7 +738,8 @@ title='' tabindex="0"
 
 <?php echo $this->_tpl_vars['CREDIT_ALLOCATION']; ?>
 <input accesskey=""  tabindex="0"  type = "hidden" name = "cnt_value" id = "cnt_value" value = "<?php echo $this->_tpl_vars['CNT_VALUE']; ?>
-" />
+" /> <input accesskey=""  tabindex="0"  type="hidden" name="credit_dt_hidden" id="credit_dt_hidden" value=<?php echo $this->_tpl_vars['CREDIT_DATE_HID']; ?>
+ />
 </tr>
 <?php $this->_smarty_vars['capture']['tr'] = ob_get_contents();  $this->assign('tableRow', ob_get_contents());ob_end_clean();  if ($this->_tpl_vars['fieldsUsed'] > 0):  echo $this->_tpl_vars['tableRow']; ?>
 
@@ -878,11 +805,25 @@ title='' tabindex="0"
 <?php echo smarty_function_counter(array('name' => 'fieldsUsed'), $this);?>
 
 
-<td valign="top" width='37.5%' colspan='3'>
+<td valign="top" width='37.5%' >
 <?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
 
 <input accesskey=""  tabindex="0"  type = "checkbox" id = "freceipt" name = "freceipt"  onclick = changeFrecipt() <?php echo $this->_tpl_vars['F_RECEIPT']; ?>
  value = "<?php echo $this->_tpl_vars['FRECIPT_VALUE']; ?>
+" />
+<td valign="top" id='patent_number_label' width='12.5%' scope="col">
+<?php ob_start();  echo smarty_function_sugar_translate(array('label' => 'LBL_PATENT_NUMBER','module' => 'Cases'), $this); $this->_smarty_vars['capture']['label'] = ob_get_contents();  $this->assign('label', ob_get_contents());ob_end_clean(); ?>
+<label for="patent_number"><?php echo ((is_array($_tmp=$this->_tpl_vars['label'])) ? $this->_run_mod_handler('strip_semicolon', true, $_tmp) : smarty_modifier_strip_semicolon($_tmp)); ?>
+:</label>
+</td>
+<?php echo smarty_function_counter(array('name' => 'fieldsUsed'), $this);?>
+
+
+<td valign="top" width='37.5%' >
+<?php echo smarty_function_counter(array('name' => 'panelFieldCount'), $this);?>
+
+<input accesskey=""  tabindex="0"  type = "text" name = "patent_number" id = "patent_number" value = "<?php echo $this->_tpl_vars['PATENT_NUMBER_VALUE']; ?>
+" style="<?php echo $this->_tpl_vars['PATENT_NUMBER_HIDE']; ?>
 " />
 </tr>
 <?php $this->_smarty_vars['capture']['tr'] = ob_get_contents();  $this->assign('tableRow', ob_get_contents());ob_end_clean();  if ($this->_tpl_vars['fieldsUsed'] > 0):  echo $this->_tpl_vars['tableRow']; ?>
@@ -1255,6 +1196,8 @@ addToValidate(\'EditView\', \'case_origin\', \'varchar\', false,\'';  echo smart
 addToValidate(\'EditView\', \'amount_paid\', \'decimal\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_AMOUNT_PAID','module' => 'Cases','for_js' => true), $this); echo '\' );
 addToValidate(\'EditView\', \'qb_date\', \'date\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_QB_DATE','module' => 'Cases','for_js' => true), $this); echo '\' );
 addToValidate(\'EditView\', \'date_case_status_modified_date\', \'date\', false,\'LBL_DATE_CASE_STATUS_MODIFIED\' );
+addToValidate(\'EditView\', \'case_end_user_id\', \'char\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_CASE_END_USER_ID','module' => 'Cases','for_js' => true), $this); echo '\' );
+addToValidate(\'EditView\', \'case_end_user_name\', \'relate\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_CASE_END_USER_NAME','module' => 'Cases','for_js' => true), $this); echo '\' );
 addToValidate(\'EditView\', \'trade_trademark_cases_name\', \'relate\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'LBL_TRADE_TRADEMARK_CASES_FROM_TRADE_TRADEMARK_TITLE','module' => 'Cases','for_js' => true), $this); echo '\' );
 addToValidateBinaryDependency(\'EditView\', \'assigned_user_name\', \'alpha\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'ERR_SQS_NO_MATCH_FIELD','module' => 'Cases','for_js' => true), $this); echo ': ';  echo smarty_function_sugar_translate(array('label' => 'LBL_ASSIGNED_TO','module' => 'Cases','for_js' => true), $this); echo '\', \'assigned_user_id\' );
 addToValidateBinaryDependency(\'EditView\', \'client_consultant_name\', \'alpha\', false,\'';  echo smarty_function_sugar_translate(array('label' => 'ERR_SQS_NO_MATCH_FIELD','module' => 'Cases','for_js' => true), $this); echo ': ';  echo smarty_function_sugar_translate(array('label' => 'LBL_CLIENT_CONSULTANT_NAME','module' => 'Cases','for_js' => true), $this); echo '\', \'client_consultant_id\' );

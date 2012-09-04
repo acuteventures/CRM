@@ -53,7 +53,7 @@ $searchFields['Accounts'] =
 		'rating'=> array('query_type'=>'default'),
 		//by anuradha on 11-07-2012: dont remove the comment
 		//'phone'=> array('query_type'=>'default','db_field'=>array('phone_office'),'vname' =>'LBL_ANY_PHONE'),
-		'email'=> array(
+/*		'email'=> array(
 			'query_type' => 'default',
 			'operator' => 'subquery',
 			'subquery' => 'SELECT eabr.bean_id FROM email_addr_bean_rel eabr JOIN email_addresses ea ON (ea.id = eabr.email_address_id) WHERE eabr.deleted=0 AND ea.email_address LIKE',
@@ -61,7 +61,7 @@ $searchFields['Accounts'] =
 				'id',
 			),
 			'vname' =>'LBL_ANY_EMAIL',
-		),
+		), */
 		'website'=> array('query_type'=>'default'),
 		'ownership'=> array('query_type'=>'default'),
 		'employees'=> array('query_type'=>'default'),
@@ -80,7 +80,7 @@ $searchFields['Accounts'] =
 		//by anuradha 06-07-2012
 		'phone_alternate'=> array('query_type'=>'default','db_field'=>array('phone_alternate')),
 		'mobile'=> array('query_type'=>'default','db_field'=>array('mobile')),
-		'phone'=> array(
+/*		'phone'=> array(
 			'query_type' => 'default',
 			'operator' => 'subquery',
 			//'subquery' => 'SELECT ph.account_id_c FROM accounts a JOIN ph_phoneno ph ON (a.id = ph.phone_no) WHERE a.deleted=0 AND ph.phone_no LIKE',
@@ -89,7 +89,7 @@ $searchFields['Accounts'] =
 				'id',
 			),
 			'vname' =>'LBL_ANY_PHONE',
-		),
+		), */
 		//end		
 	);
 	

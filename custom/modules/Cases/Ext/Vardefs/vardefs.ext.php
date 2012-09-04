@@ -61,6 +61,44 @@ $dictionary["Case"]["fields"]['date_case_status_modified'] =
     'vname' => 'LBL_DATE_CASE_STATUS_MODIFIED',
     'type' => 'datetime',
   );
+ //* preethi on 31-08-2012
+//* Des : added new filed 
+$dictionary["Case"]["fields"]['case_end_user_id'] = array(
+    'required' => false,
+    'name' => 'case_end_user_id',
+    'vname' => 'LBL_CASE_END_USER_ID',
+    'type' => 'char',
+    'massupdate' => 0,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'disabled',
+    'duplicate_merge_dom_value' => '0',
+    'audited' => false,
+    'reportable' => true,
+    'len' => 36,
+    'size' => '36',
+);
+$dictionary["Case"]["fields"]['case_end_user_name'] = array(
+    'name' => 'case_end_user_name',
+    'rname' => 'name',
+    'id_name' => 'case_end_user_id',
+    'vname' => 'LBL_CASE_END_USER_NAME',
+    'type' => 'relate',
+    'link'=>'Users',
+    'table' => 'users',
+    'isnull' => 'true',
+    'module' => 'Users',
+    'dbType' => 'varchar',
+    'len' => 100,
+    'source'=>'non-db',
+    'unified_search' => true,
+    'comment' => '',
+    'required' => false,
+    'importable' => 'required',
+);
+//* End
+
 
 // created: 2011-12-23 08:57:43
 $dictionary["Case"]["fields"]["oa_officeactions_cases"] = array (

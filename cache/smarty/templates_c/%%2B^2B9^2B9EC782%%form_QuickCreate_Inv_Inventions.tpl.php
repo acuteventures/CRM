@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.11, created on 2012-08-27 11:47:04
+<?php /* Smarty version 2.6.11, created on 2012-09-04 15:06:11
          compiled from cache/modules/Inv_Inventions/form_QuickCreate_Inv_Inventions.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_include', 'cache/modules/Inv_Inventions/form_QuickCreate_Inv_Inventions.tpl', 36, false),array('function', 'counter', 'cache/modules/Inv_Inventions/form_QuickCreate_Inv_Inventions.tpl', 42, false),array('function', 'sugar_translate', 'cache/modules/Inv_Inventions/form_QuickCreate_Inv_Inventions.tpl', 48, false),array('function', 'sugar_getimagepath', 'cache/modules/Inv_Inventions/form_QuickCreate_Inv_Inventions.tpl', 91, false),array('modifier', 'default', 'cache/modules/Inv_Inventions/form_QuickCreate_Inv_Inventions.tpl', 43, false),array('modifier', 'strip_semicolon', 'cache/modules/Inv_Inventions/form_QuickCreate_Inv_Inventions.tpl', 49, false),)), $this); ?>
